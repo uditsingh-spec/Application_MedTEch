@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { useAuthStore } from '../store/useAuthStore';
 
-// IMPORTANT: For physical Android device testing with Expo Go, 
-// Automatically set to your computer's local Wi-Fi IP address so phones on the same network can connect.
-export const API_URL = 'http://192.168.1.3:5000/api';
+// Production URL pointing to Render
+export const API_URL = 'https://application-medtech.onrender.com/api';
 
 const api = axios.create({
   baseURL: API_URL,
