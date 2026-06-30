@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { View, Text, FlatList, TouchableOpacity, TextInput, ActivityIndicator, RefreshControl, StyleSheet, Image, Modal, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -285,16 +286,16 @@ export default function BabiesListScreen() {
               style={{ backgroundColor: '#ffffff', padding: 12, borderRadius: 12, marginBottom: 8, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 }}
               onPress={() => navigation.navigate('BabyDetails', { babyId: twin._id })}
             >
-              <View>
+              <View style={{ flexShrink: 1 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
-                  <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#1e293b' }}>
+                  <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#1e293b', flexShrink: 1 }} numberOfLines={1} ellipsizeMode="tail">
                     Twin {twin.twinLabel === 'A' ? '1' : twin.twinLabel === 'B' ? '2' : twin.twinLabel}
                   </Text>
-                  <View style={[styles.badge, { backgroundColor: '#f1f5f9', marginLeft: 8, paddingHorizontal: 6, paddingVertical: 2 }]}>
-                    <Text style={{ fontSize: 11, fontWeight: '600', color: '#475569' }}>{twin.gender}</Text>
+                  <View style={[styles.badge, { backgroundColor: '#f1f5f9', marginLeft: 8, paddingHorizontal: 6, paddingVertical: 2, flexShrink: 0 }]}>
+                    <Text style={{ fontSize: 11, fontWeight: '600', color: '#475569' }} numberOfLines={1} ellipsizeMode="tail">{twin.gender}</Text>
                   </View>
                 </View>
-                <Text style={{ fontSize: 12, color: '#64748b' }}>
+                <Text style={{ fontSize: 12, color: '#64748b' }} numberOfLines={1} ellipsizeMode="tail">
                   {twin.termStatus || 'Term'} • {twin.weight} g {twin.dob ? `• DOB: ${formatDateDDMMYYYY(twin.dob)}` : ''}
                 </Text>
               </View>
@@ -330,15 +331,19 @@ export default function BabiesListScreen() {
               {item.isGroup ? <Users size={24} color="#94a3b8" /> : <Text style={{ fontSize: 20, color: '#64748b', fontWeight: 'bold' }}>{item.motherName.charAt(0).toUpperCase()}</Text>}
             </View>
           )}
-          <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, minWidth: 0 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 }}>
-              <Text style={styles.cardTitle}>{item.motherName}</Text>
+              <View style={{ flexShrink: 1, marginRight: 8 }}>
+                <Text style={styles.cardTitle} numberOfLines={1} ellipsizeMode="tail">{item.motherName}</Text>
+              </View>
               {!item.isGroup && item.dob && (
-                <Text style={styles.cardDob}>DOB: {formatDateDDMMYYYY(item.dob)}</Text>
+                <Text style={[styles.cardDob, { flexShrink: 0 }]}>DOB: {formatDateDDMMYYYY(item.dob)}</Text>
               )}
             </View>
             
-            <Text style={styles.cardSubtitle}>{item.displayId}</Text>
+            <View style={{ flexShrink: 1 }}>
+              <Text style={styles.cardSubtitle} numberOfLines={1} ellipsizeMode="tail">{item.displayId}</Text>
+            </View>
             
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, flexWrap: 'wrap', gap: 6 }}>
               {item.isGroup ? (
@@ -493,33 +498,33 @@ export default function BabiesListScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f8fafc' },
-  header: { paddingHorizontal: 24, paddingVertical: 16, backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  headerTitle: { fontSize: 24, fontWeight: '800', color: '#1e293b' },
-  headerSubtitle: { fontSize: 14, color: '#64748b' },
-  logoutButton: { padding: 8, backgroundColor: '#fef2f2', borderRadius: 20 },
-  searchContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#e2e8f0', borderRadius: 12, paddingHorizontal: 16, paddingVertical: 8, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
-  searchInput: { flex: 1, marginLeft: 12, fontSize: 16, color: '#1e293b' },
+  header: { paddingHorizontal: moderateScale(24), paddingVertical: moderateScale(16), backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  headerTitle: { fontSize: moderateScale(24), fontWeight: '800', color: '#1e293b' },
+  headerSubtitle: { fontSize: moderateScale(14), color: '#64748b' },
+  logoutButton: { padding: moderateScale(8), backgroundColor: '#fef2f2', borderRadius: moderateScale(20) },
+  searchContainer: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#e2e8f0', borderRadius: moderateScale(12), paddingHorizontal: moderateScale(16), paddingVertical: moderateScale(8), shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
+  searchInput: { flex: 1, marginLeft: moderateScale(12), fontSize: moderateScale(16), color: '#1e293b' },
   
-  filtersContainer: { paddingHorizontal: 24, paddingVertical: 12, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 },
-  filterPillsContainer: { flexDirection: 'row', gap: 8, flexWrap: 'wrap', flex: 1 },
-  filterPill: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 16, borderWidth: 1, borderColor: '#e2e8f0', backgroundColor: '#ffffff' },
+  filtersContainer: { paddingHorizontal: moderateScale(24), paddingVertical: moderateScale(12), flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: moderateScale(12) },
+  filterPillsContainer: { flexDirection: 'row', gap: moderateScale(8), flexWrap: 'wrap', flex: 1 },
+  filterPill: { paddingHorizontal: moderateScale(12), paddingVertical: moderateScale(6), borderRadius: moderateScale(16), borderWidth: 1, borderColor: '#e2e8f0', backgroundColor: '#ffffff' },
   filterPillActive: { borderColor: '#4f46e5', backgroundColor: '#e0e7ff' },
-  filterPillText: { fontSize: 13, color: '#64748b', fontWeight: '500' },
+  filterPillText: { fontSize: moderateScale(13), color: '#64748b', fontWeight: '500' },
   filterPillTextActive: { color: '#4f46e5', fontWeight: '600' },
-  sortButton: { paddingHorizontal: 12, paddingVertical: 6, borderRadius: 8, backgroundColor: '#f1f5f9' },
-  sortText: { fontSize: 13, color: '#334155', fontWeight: '500' },
+  sortButton: { paddingHorizontal: moderateScale(12), paddingVertical: moderateScale(6), borderRadius: moderateScale(8), backgroundColor: '#f1f5f9' },
+  sortText: { fontSize: moderateScale(13), color: '#334155', fontWeight: '500' },
 
   centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  card: { backgroundColor: '#ffffff', padding: 16, marginBottom: 12, borderRadius: 12, borderWidth: 1, borderColor: '#f1f5f9', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
-  cardTitle: { fontSize: 18, fontWeight: 'bold', color: '#1e293b' },
-  cardSubtitle: { color: '#64748b', fontSize: 14, marginTop: 2 },
-  cardDob: { fontSize: 12, color: '#64748b', fontWeight: '500' },
+  card: { backgroundColor: '#ffffff', padding: moderateScale(16), marginBottom: moderateScale(12), borderRadius: moderateScale(12), borderWidth: 1, borderColor: '#f1f5f9', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
+  cardTitle: { fontSize: moderateScale(18), fontWeight: 'bold', color: '#1e293b' },
+  cardSubtitle: { color: '#64748b', fontSize: moderateScale(14), marginTop: moderateScale(2) },
+  cardDob: { fontSize: moderateScale(12), color: '#64748b', fontWeight: '500' },
   
-  badge: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6 },
-  badgeText: { fontSize: 12, fontWeight: '600' },
-  weightBadge: { paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6, backgroundColor: '#ccfbf1' },
-  weightText: { fontSize: 12, fontWeight: '600', color: '#0f766e' },
-  registeredDate: { fontSize: 12, color: '#94a3b8', fontWeight: '500' },
+  badge: { paddingHorizontal: moderateScale(8), paddingVertical: moderateScale(4), borderRadius: moderateScale(6) },
+  badgeText: { fontSize: moderateScale(12), fontWeight: '600' },
+  weightBadge: { paddingHorizontal: moderateScale(8), paddingVertical: moderateScale(4), borderRadius: moderateScale(6), backgroundColor: '#ccfbf1' },
+  weightText: { fontSize: moderateScale(12), fontWeight: '600', color: '#0f766e' },
+  registeredDate: { fontSize: moderateScale(12), color: '#94a3b8', fontWeight: '500' },
 
-  fab: { position: 'absolute', bottom: 32, right: 24, backgroundColor: '#4f46e5', width: 64, height: 64, borderRadius: 32, justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 4, elevation: 6 }
+  fab: { position: 'absolute', bottom: moderateScale(32), right: moderateScale(24), backgroundColor: '#4f46e5', width: moderateScale(64), height: moderateScale(64), borderRadius: moderateScale(32), justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 4, elevation: 6 }
 });

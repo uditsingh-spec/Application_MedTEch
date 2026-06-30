@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Alert, SafeAreaView, KeyboardAvoidingView, ScrollView, Platform, StyleSheet } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
 import api from '../services/api';
 import { useAuthStore } from '../store/useAuthStore';
 
@@ -91,14 +92,14 @@ export default function LoginScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f8fafc' },
-  keyboardView: { flex: 1, justifyContent: 'center', paddingHorizontal: 32 },
-  card: { backgroundColor: '#ffffff', padding: 32, borderRadius: 24, shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 2, borderColor: '#f1f5f9', borderWidth: 1 },
-  header: { alignItems: 'center', marginBottom: 32 },
-  title: { fontSize: 30, fontWeight: '800', color: '#4f46e5' },
-  subtitle: { color: '#64748b', marginTop: 8, textAlign: 'center' },
-  form: { gap: 16 },
-  label: { fontSize: 14, fontWeight: '500', color: '#334155', marginBottom: 4 },
-  input: { width: '100%', backgroundColor: '#f8fafc', borderColor: '#e2e8f0', borderWidth: 1, borderRadius: 12, paddingHorizontal: 16, paddingVertical: 12, color: '#0f172a' },
-  button: { width: '100%', backgroundColor: '#4f46e5', borderRadius: 12, paddingVertical: 16, marginTop: 32, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
-  buttonText: { color: '#ffffff', fontWeight: 'bold', fontSize: 18 }
+  keyboardView: { flex: 1, justifyContent: 'center', paddingHorizontal: moderateScale(32) },
+  card: { backgroundColor: '#ffffff', padding: moderateScale(32), borderRadius: moderateScale(24), shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 2, borderColor: '#f1f5f9', borderWidth: 1 },
+  header: { alignItems: 'center', marginBottom: moderateScale(32) },
+  title: { fontSize: moderateScale(30), fontWeight: '800', color: '#4f46e5' },
+  subtitle: { color: '#64748b', marginTop: moderateScale(8), textAlign: 'center' },
+  form: { gap: moderateScale(16) },
+  label: { fontSize: moderateScale(14), fontWeight: '500', color: '#334155', marginBottom: moderateScale(4) },
+  input: { width: '100%', backgroundColor: '#f8fafc', borderColor: '#e2e8f0', borderWidth: 1, borderRadius: moderateScale(12), paddingHorizontal: moderateScale(16), paddingVertical: moderateScale(12), color: '#0f172a' },
+  button: { width: '100%', backgroundColor: '#4f46e5', borderRadius: moderateScale(12), paddingVertical: moderateScale(16), marginTop: moderateScale(32), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
+  buttonText: { color: '#ffffff', fontWeight: 'bold', fontSize: moderateScale(18) }
 });

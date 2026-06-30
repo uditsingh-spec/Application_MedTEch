@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Alert, StyleSheet, Switch, Image, Platform, KeyboardAvoidingView } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
@@ -488,21 +489,21 @@ export default function AddBabyScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f1f5f9' },
-  header: { paddingHorizontal: 16, paddingVertical: 16, backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', flexDirection: 'row', alignItems: 'center' },
-  headerTitle: { fontSize: 20, fontWeight: 'bold', color: '#1e293b' },
-  card: { backgroundColor: '#ffffff', padding: 20, borderRadius: 16, marginBottom: 16, borderWidth: 1, borderColor: '#e2e8f0', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
-  cardTitle: { fontSize: 16, fontWeight: '700', color: '#334155', marginBottom: 16, borderBottomWidth: 1, borderBottomColor: '#f1f5f9', paddingBottom: 8 },
-  fieldContainer: { marginBottom: 16 },
+  header: { paddingHorizontal: moderateScale(16), paddingVertical: moderateScale(16), backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', flexDirection: 'row', alignItems: 'center' },
+  headerTitle: { fontSize: moderateScale(20), fontWeight: 'bold', color: '#1e293b' },
+  card: { backgroundColor: '#ffffff', padding: moderateScale(20), borderRadius: moderateScale(16), marginBottom: moderateScale(16), borderWidth: 1, borderColor: '#e2e8f0', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
+  cardTitle: { fontSize: moderateScale(16), fontWeight: '700', color: '#334155', marginBottom: moderateScale(16), borderBottomWidth: 1, borderBottomColor: '#f1f5f9', paddingBottom: moderateScale(8) },
+  fieldContainer: { marginBottom: moderateScale(16) },
   rowBetween: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  label: { fontSize: 14, fontWeight: '500', color: '#475569', marginBottom: 8 },
-  input: { backgroundColor: '#f8fafc', borderColor: '#cbd5e1', borderWidth: 1, borderRadius: 10, paddingHorizontal: 16, paddingVertical: 12, color: '#0f172a' },
+  label: { fontSize: moderateScale(14), fontWeight: '500', color: '#475569', marginBottom: moderateScale(8) },
+  input: { backgroundColor: '#f8fafc', borderColor: '#cbd5e1', borderWidth: 1, borderRadius: moderateScale(10), paddingHorizontal: moderateScale(16), paddingVertical: moderateScale(12), color: '#0f172a' },
   inputError: { borderColor: '#ef4444', backgroundColor: '#fef2f2' },
-  errorText: { color: '#ef4444', fontSize: 12, marginTop: 4 },
-  imagePickerBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#eef2ff', paddingVertical: 16, borderRadius: 12, borderWidth: 1, borderColor: '#c7d2fe', borderStyle: 'dashed' },
-  imagePickerText: { color: '#4f46e5', fontWeight: '600', marginLeft: 8 },
-  imagePreviewContainer: { position: 'relative', width: 120, height: 120, borderRadius: 12, overflow: 'hidden' },
+  errorText: { color: '#ef4444', fontSize: moderateScale(12), marginTop: moderateScale(4) },
+  imagePickerBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#eef2ff', paddingVertical: moderateScale(16), borderRadius: moderateScale(12), borderWidth: 1, borderColor: '#c7d2fe', borderStyle: 'dashed' },
+  imagePickerText: { color: '#4f46e5', fontWeight: '600', marginLeft: moderateScale(8) },
+  imagePreviewContainer: { position: 'relative', width: moderateScale(120), height: moderateScale(120), borderRadius: moderateScale(12), overflow: 'hidden' },
   imagePreview: { width: '100%', height: '100%' },
-  removeImageBtn: { position: 'absolute', top: 8, right: 8, backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 12, padding: 4 },
-  button: { width: '100%', backgroundColor: '#4f46e5', borderRadius: 12, paddingVertical: 16, marginTop: 8, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
-  buttonText: { color: '#ffffff', fontWeight: 'bold', fontSize: 16 }
+  removeImageBtn: { position: 'absolute', top: moderateScale(8), right: moderateScale(8), backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: moderateScale(12), padding: moderateScale(4) },
+  button: { width: '100%', backgroundColor: '#4f46e5', borderRadius: moderateScale(12), paddingVertical: moderateScale(16), marginTop: moderateScale(8), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
+  buttonText: { color: '#ffffff', fontWeight: 'bold', fontSize: moderateScale(16) }
 });

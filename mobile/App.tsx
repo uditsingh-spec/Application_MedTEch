@@ -8,6 +8,16 @@ import { View, ActivityIndicator, Text, TextInput } from 'react-native';
 import { NetworkSyncWrapper } from './src/components/NetworkSyncWrapper';
 import { GlobalSyncBanner } from './src/components/GlobalSyncBanner';
 
+// @ts-ignore
+if (Text.defaultProps == null) Text.defaultProps = {};
+// @ts-ignore
+Text.defaultProps.allowFontScaling = false;
+
+// @ts-ignore
+if (TextInput.defaultProps == null) TextInput.defaultProps = {};
+// @ts-ignore
+TextInput.defaultProps.allowFontScaling = false;
+
 export default function App() {
   const restoreSession = useAuthStore((state) => state.restoreSession);
   const isLoading = useAuthStore((state) => state.isLoading);

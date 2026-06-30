@@ -5,6 +5,7 @@ import { useRoute, useNavigation, RouteProp, useFocusEffect } from '@react-navig
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import { ArrowLeft, Plus, Pencil } from 'lucide-react-native';
+import { moderateScale } from 'react-native-size-matters';
 import api from '../services/api';
 import { getDB } from '../services/db';
 import { useAuthStore } from '../store/useAuthStore';
@@ -242,7 +243,7 @@ export default function BabyDetailsScreen() {
             )}
             <View style={{ flex: 1 }}>
               <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                <Text style={[styles.infoTitle, { flexShrink: 1 }]}>{baby.motherName}</Text>
+                <Text style={[styles.infoTitle, { flexShrink: 1 }]} numberOfLines={1} ellipsizeMode="tail">{baby.motherName}</Text>
                 <TouchableOpacity 
                   style={{ padding: 4, marginLeft: 8 }} 
                   onPress={() => navigation.navigate('AddBaby', { babyId: baby._id })}
@@ -250,7 +251,7 @@ export default function BabyDetailsScreen() {
                   <Pencil size={20} color="#64748b" />
                 </TouchableOpacity>
               </View>
-              <Text style={styles.infoSubtitle}>{baby.displayId.replace(/-([^-]+)$/, '-\u200B$1')}</Text>
+              <Text style={styles.infoSubtitle} numberOfLines={1} ellipsizeMode="tail">{baby.displayId.replace(/-([^-]+)$/, '-\u200B$1')}</Text>
             </View>
           </View>
           
@@ -349,21 +350,21 @@ export default function BabyDetailsScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f8fafc' },
   centered: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f8fafc' },
-  header: { paddingHorizontal: 16, paddingVertical: 16, backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  headerTitle: { fontSize: 20, fontWeight: 'bold', color: '#1e293b' },
-  infoCard: { margin: 16, backgroundColor: '#ffffff', padding: 24, borderRadius: 16, borderWidth: 1, borderColor: '#e2e8f0', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
-  infoTitle: { fontSize: 24, fontWeight: '800', color: '#1e293b' },
-  infoSubtitle: { fontSize: 14, fontWeight: '500', color: '#64748b', marginBottom: 16 },
-  infoGrid: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 8 },
-  infoItem: { width: '50%', marginBottom: 12 },
-  infoLabel: { fontSize: 12, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.5 },
-  infoValue: { fontSize: 16, fontWeight: '600', color: '#1e293b', marginTop: 2 },
-  sectionTitle: { fontSize: 18, fontWeight: 'bold', color: '#1e293b', marginBottom: 16, marginLeft: 4 },
-  emptyCard: { alignItems: 'center', paddingVertical: 32, backgroundColor: '#f1f5f9', borderRadius: 12 },
-  sampleCard: { backgroundColor: '#ffffff', padding: 16, marginBottom: 12, borderRadius: 12, borderWidth: 1, borderColor: '#e2e8f0', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  sampleTitle: { fontSize: 16, fontWeight: 'bold', color: '#1e293b' },
-  sampleSubtitle: { fontSize: 14, color: '#64748b', marginTop: 4 },
-  sampleWeight: { fontSize: 14, fontWeight: '600', color: '#4f46e5' },
-  sampleEdit: { fontSize: 12, color: '#94a3b8', marginTop: 4 },
-  fab: { position: 'absolute', bottom: 32, right: 24, backgroundColor: '#4f46e5', width: 64, height: 64, borderRadius: 32, justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 4, elevation: 6 }
+  header: { paddingHorizontal: moderateScale(16), paddingVertical: moderateScale(16), backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  headerTitle: { fontSize: moderateScale(20), fontWeight: 'bold', color: '#1e293b' },
+  infoCard: { margin: moderateScale(16), backgroundColor: '#ffffff', padding: moderateScale(24), borderRadius: moderateScale(16), borderWidth: 1, borderColor: '#e2e8f0', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
+  infoTitle: { fontSize: moderateScale(24), fontWeight: '800', color: '#1e293b' },
+  infoSubtitle: { fontSize: moderateScale(14), fontWeight: '500', color: '#64748b', marginBottom: moderateScale(16) },
+  infoGrid: { flexDirection: 'row', flexWrap: 'wrap', marginTop: moderateScale(8) },
+  infoItem: { flexBasis: '50%', flexShrink: 1, minWidth: 0, marginBottom: moderateScale(12) },
+  infoLabel: { fontSize: moderateScale(12), color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.5 },
+  infoValue: { fontSize: moderateScale(16), fontWeight: '600', color: '#1e293b', marginTop: moderateScale(2) },
+  sectionTitle: { fontSize: moderateScale(18), fontWeight: 'bold', color: '#1e293b', marginBottom: moderateScale(16), marginLeft: moderateScale(4) },
+  emptyCard: { alignItems: 'center', paddingVertical: moderateScale(32), backgroundColor: '#f1f5f9', borderRadius: moderateScale(12) },
+  sampleCard: { backgroundColor: '#ffffff', padding: moderateScale(16), marginBottom: moderateScale(12), borderRadius: moderateScale(12), borderWidth: 1, borderColor: '#e2e8f0', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  sampleTitle: { fontSize: moderateScale(16), fontWeight: 'bold', color: '#1e293b' },
+  sampleSubtitle: { fontSize: moderateScale(14), color: '#64748b', marginTop: moderateScale(4) },
+  sampleWeight: { fontSize: moderateScale(14), fontWeight: '600', color: '#4f46e5' },
+  sampleEdit: { fontSize: moderateScale(12), color: '#94a3b8', marginTop: moderateScale(4) },
+  fab: { position: 'absolute', bottom: moderateScale(32), right: moderateScale(24), backgroundColor: '#4f46e5', width: moderateScale(64), height: moderateScale(64), borderRadius: moderateScale(32), justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 4, elevation: 6 }
 });

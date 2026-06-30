@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Alert, StyleSheet, Platform } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
@@ -423,25 +424,25 @@ export default function SampleFormScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f8fafc' },
   centered: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f8fafc' },
-  header: { paddingHorizontal: 16, paddingVertical: 16, backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', flexDirection: 'row', alignItems: 'center' },
-  headerTitle: { fontSize: 20, fontWeight: 'bold', color: '#1e293b' },
-  card: { backgroundColor: '#ffffff', padding: 16, borderRadius: 16, borderWidth: 1, borderColor: '#e2e8f0' },
-  cardTitle: { fontSize: 16, fontWeight: 'bold', color: '#1e293b', marginBottom: 16 },
-  fieldContainer: { marginBottom: 12 },
-  label: { fontSize: 13, fontWeight: '600', color: '#334155', marginBottom: 6 },
-  input: { backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderWidth: 1, borderRadius: 10, paddingHorizontal: 14, paddingVertical: 10, color: '#0f172a' },
+  header: { paddingHorizontal: moderateScale(16), paddingVertical: moderateScale(16), backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', flexDirection: 'row', alignItems: 'center' },
+  headerTitle: { fontSize: moderateScale(20), fontWeight: 'bold', color: '#1e293b' },
+  card: { backgroundColor: '#ffffff', padding: moderateScale(16), borderRadius: moderateScale(16), borderWidth: 1, borderColor: '#e2e8f0' },
+  cardTitle: { fontSize: moderateScale(16), fontWeight: 'bold', color: '#1e293b', marginBottom: moderateScale(16) },
+  fieldContainer: { marginBottom: moderateScale(12) },
+  label: { fontSize: moderateScale(13), fontWeight: '600', color: '#334155', marginBottom: moderateScale(6) },
+  input: { backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderWidth: 1, borderRadius: moderateScale(10), paddingHorizontal: moderateScale(14), paddingVertical: moderateScale(10), color: '#0f172a' },
   inputError: { borderColor: '#ef4444', backgroundColor: '#fef2f2' },
-  errorText: { color: '#ef4444', fontSize: 12, marginTop: 4 },
-  button: { width: '100%', backgroundColor: '#4f46e5', borderRadius: 12, paddingVertical: 16, marginTop: 8, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
-  buttonText: { color: '#ffffff', fontWeight: 'bold', fontSize: 18 },
-  gridCard: { backgroundColor: '#f8fafc', padding: 16, borderRadius: 16, borderWidth: 1, borderColor: '#e2e8f0', marginBottom: 16 },
-  gridTitle: { fontSize: 16, fontWeight: 'bold', color: '#1e293b', marginBottom: 16 },
-  gridSection: { backgroundColor: '#ffffff', padding: 12, borderRadius: 12, borderWidth: 1, borderColor: '#f1f5f9', marginBottom: 12 },
+  errorText: { color: '#ef4444', fontSize: moderateScale(12), marginTop: moderateScale(4) },
+  button: { width: '100%', backgroundColor: '#4f46e5', borderRadius: moderateScale(12), paddingVertical: moderateScale(16), marginTop: moderateScale(8), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
+  buttonText: { color: '#ffffff', fontWeight: 'bold', fontSize: moderateScale(18) },
+  gridCard: { backgroundColor: '#f8fafc', padding: moderateScale(16), borderRadius: moderateScale(16), borderWidth: 1, borderColor: '#e2e8f0', marginBottom: moderateScale(16) },
+  gridTitle: { fontSize: moderateScale(16), fontWeight: 'bold', color: '#1e293b', marginBottom: moderateScale(16) },
+  gridSection: { backgroundColor: '#ffffff', padding: moderateScale(12), borderRadius: moderateScale(12), borderWidth: 1, borderColor: '#f1f5f9', marginBottom: moderateScale(12) },
   gridSectionError: { borderColor: '#ef4444' },
-  gridSectionTitle: { fontSize: 14, fontWeight: '600', color: '#475569', marginBottom: 12, borderBottomWidth: 1, borderBottomColor: '#f1f5f9', paddingBottom: 6 },
-  gridRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  gridCell: { width: '18%', minWidth: 40, marginBottom: 8 },
-  gridLabel: { fontSize: 11, color: '#64748b', textAlign: 'center', marginBottom: 4 },
-  gridInput: { backgroundColor: '#f8fafc', borderColor: '#e2e8f0', borderWidth: 1, borderRadius: 8, paddingHorizontal: 4, paddingVertical: 8, color: '#0f172a', textAlign: 'center', fontSize: 12 },
+  gridSectionTitle: { fontSize: moderateScale(14), fontWeight: '600', color: '#475569', marginBottom: moderateScale(12), borderBottomWidth: 1, borderBottomColor: '#f1f5f9', paddingBottom: moderateScale(6) },
+  gridRow: { flexDirection: 'row', flexWrap: 'wrap', gap: moderateScale(8) },
+  gridCell: { flexBasis: '18%', flexShrink: 1, minWidth: 0, marginBottom: moderateScale(8) },
+  gridLabel: { fontSize: moderateScale(11), color: '#64748b', textAlign: 'center', marginBottom: moderateScale(4) },
+  gridInput: { backgroundColor: '#f8fafc', borderColor: '#e2e8f0', borderWidth: 1, borderRadius: moderateScale(8), paddingHorizontal: moderateScale(4), paddingVertical: moderateScale(8), color: '#0f172a', textAlign: 'center', fontSize: moderateScale(12) },
   gridInputError: { borderColor: '#ef4444', backgroundColor: '#fef2f2' }
 });
