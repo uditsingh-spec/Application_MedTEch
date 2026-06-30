@@ -22,7 +22,7 @@ const parseWeight = (val: any) => {
 
 // Same Zod schema as web app
 const sampleSchema = z.object({
-  weight: z.preprocess(parseWeight, z.number().min(500).max(5000).optional()),
+  weight: z.preprocess(parseWeight, z.number({ message: 'Weight is required' }).min(500, 'Must be at least 500g').max(5000, 'Cannot exceed 5000g')),
   shift: z.enum(['M', 'E']).optional(),
   mbj20_f: z.preprocess((val) => val === '' || val == null ? undefined : Number(val), z.number().optional()),
   mbj20_s: z.preprocess((val) => val === '' || val == null ? undefined : Number(val), z.number().optional()),

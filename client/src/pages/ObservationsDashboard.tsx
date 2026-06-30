@@ -49,7 +49,7 @@ const ObservationsDashboard: React.FC = () => {
             Meta Data
           </button>
         </div>
-        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto items-center">
+        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto items-center min-w-0 sm:flex-shrink-0">
           {activeTab === 'daily' && (
             <input
               type="date"
@@ -60,7 +60,7 @@ const ObservationsDashboard: React.FC = () => {
               title="Filter by observation date"
             />
           )}
-          <div className="w-full sm:w-72">
+          <div className="w-full sm:w-56 min-w-0">
             <SearchBar onSearch={setSearchQuery} placeholder="Search by Baby ID..." />
           </div>
         </div>
