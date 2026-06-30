@@ -8,7 +8,7 @@ import Button from '../../common/Button';
 const sampleSchema = z.object({
   weight: z.preprocess((val) => val === '' || val === null || val === undefined ? undefined : Number(val), z.number({ message: 'Weight is required' }).min(500, 'Must be at least 500g').max(5000, 'Cannot exceed 5000g')) as z.ZodType<number, any, any>,
   day: z.preprocess((val) => val === '' || val === null || val === undefined ? undefined : Number(val), z.number().optional()) as z.ZodType<number | undefined, any, any>,
-  shift: z.preprocess((val) => val === '' ? undefined : val, z.enum(['M', 'E'], { message: 'Shift is required' }).optional()),
+  shift: z.preprocess((val) => val === '' ? undefined : val, z.enum(['M', 'E'], { message: 'Shift is required' }).optional()) as z.ZodType<"M" | "E" | undefined, any, any>,
   jm103_s: z.preprocess((val) => val === '' || val === null || val === undefined ? undefined : Number(val), z.number().optional()) as z.ZodType<number | undefined, any, any>,
   tsb: z.preprocess((val) => val === '' || val === null || val === undefined ? undefined : Number(val), z.number().optional()) as z.ZodType<number | undefined, any, any>,
   remarks: z.string().optional(),

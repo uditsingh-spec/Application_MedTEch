@@ -79,15 +79,11 @@ const GlobalObservationTable: React.FC<GlobalObservationTableProps> = memo(({ ob
       groupedObservations[id].push(obs);
     });
 
-    let globalObservationIndex = 0;
-
-    Object.entries(groupedObservations).forEach(([babyId, obsGroup]) => {
+    Object.entries(groupedObservations).forEach(([_babyId, obsGroup]) => {
       const nameStr = obsGroup[0].motherName || '-';
       const babyIdStr = obsGroup[0].displayId || '-';
 
-      obsGroup.forEach(obs => {
-        globalObservationIndex++;
-        const currentSerialNo = globalObservationIndex.toString();
+      obsGroup.forEach((obs, obsIndex) => {
         // Compute ordinal day dynamically for CSV
         const uniqueDates = Array.from(new Set(obsGroup.map(o => new Date(o.recordedAt).toLocaleDateString('en-GB'))));
         const obsDateStr = new Date(obs.recordedAt).toLocaleDateString('en-GB');
@@ -239,8 +235,6 @@ const GlobalObservationTable: React.FC<GlobalObservationTableProps> = memo(({ ob
               if (!groupedObservations[id]) groupedObservations[id] = [];
               groupedObservations[id].push(obs);
             });
-
-            let globalObservationIndex = 0;
 
             return Object.entries(groupedObservations).map(([babyId, obsGroup], groupIndex) => {
               const bgClass = groupIndex % 2 === 0 ? 'group-bg-even' : 'group-bg-odd';
