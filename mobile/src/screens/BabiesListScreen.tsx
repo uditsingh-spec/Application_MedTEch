@@ -342,7 +342,7 @@ export default function BabiesListScreen() {
             </View>
             
             <View style={{ flexShrink: 1 }}>
-              <Text style={styles.cardSubtitle} numberOfLines={1} ellipsizeMode="tail">{item.displayId}</Text>
+              <Text style={styles.cardSubtitle} numberOfLines={1} ellipsizeMode="tail">{item.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2')}</Text>
             </View>
             
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, flexWrap: 'wrap', gap: 6 }}>
@@ -404,7 +404,7 @@ export default function BabiesListScreen() {
       {/* Header */}
       <View style={styles.header}>
         <View>
-          <Text style={styles.headerTitle}>Babies</Text>
+          <Text style={styles.headerTitle}>BiliSure</Text>
           <Text style={styles.headerSubtitle}>Hello, {user?.name}</Text>
         </View>
         <TouchableOpacity onPress={logout} style={styles.logoutButton}>
@@ -418,7 +418,7 @@ export default function BabiesListScreen() {
           <Search size={20} color="#94a3b8" />
           <TextInput
             style={styles.searchInput}
-            placeholder="Search by ID or Mother's Name..."
+            placeholder="Enter mother name"
             value={search}
             onChangeText={setSearch}
           />

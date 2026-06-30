@@ -6,7 +6,7 @@ interface SearchBarProps {
   placeholder?: string;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch, placeholder = 'Search by Mother Name or ID' }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch, placeholder = 'Enter mother name' }) => {
   const [term, setTerm] = useState('');
 
   useEffect(() => {

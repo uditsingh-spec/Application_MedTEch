@@ -14,7 +14,7 @@ export const generateDisplayId = async (
   const cleanGestationalAge = gestationalAge.replace(/[\-\+]/g, '');
   
   const weightString = weight ? `${weight}-` : '';
-  let baseId = `${firstName}-${weightString}${genderInitial}${cleanGestationalAge}`;
+  let baseId = `${firstName}-${weightString}${genderInitial}-${cleanGestationalAge}`;
 
   let displayId = baseId;
   let isUnique = false;

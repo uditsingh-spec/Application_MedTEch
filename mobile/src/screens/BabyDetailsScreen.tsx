@@ -251,7 +251,7 @@ export default function BabyDetailsScreen() {
                   <Pencil size={20} color="#64748b" />
                 </TouchableOpacity>
               </View>
-              <Text style={styles.infoSubtitle} numberOfLines={1} ellipsizeMode="tail">{baby.displayId.replace(/-([^-]+)$/, '-\u200B$1')}</Text>
+              <Text style={styles.infoSubtitle} numberOfLines={1} ellipsizeMode="tail">{baby.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2').replace(/-([^-]+)$/, '-\u200B$1')}</Text>
             </View>
           </View>
           

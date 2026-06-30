@@ -42,8 +42,9 @@ const Login: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
       <div className="max-w-md w-full bg-white rounded-2xl shadow-lg p-8">
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-blue-600">Newborn ERP</h2>
+          <h2 className="text-2xl font-bold text-blue-600">BiliSure</h2>
           <p className="text-slate-500 mt-2">Sign in to your account</p>
+
         </div>
 
         {errorMsg && (

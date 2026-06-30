@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="flex items-center justify-between px-6 py-4 bg-white border-b border-slate-200 shadow-sm sticky top-0 z-10">
       <div className="flex items-center">
-        <h1 className="text-xl font-bold text-blue-600">Newborn ERP</h1>
+        <h1 className="text-xl font-bold text-blue-600">BiliSure</h1>
       </div>
       <div className="flex items-center space-x-4">
         <span className="text-sm font-medium text-slate-700">
