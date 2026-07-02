@@ -44,14 +44,14 @@ export default function LoginScreen() {
         >
           <View style={styles.card}>
             <View style={styles.header}>
-              <Text style={styles.title}>MedBlue</Text>
-              <Text style={styles.subtitle}>Sign in to access your data entry dashboard</Text>
+              <Text allowFontScaling={false} style={styles.title}>MedBlue</Text>
+              <Text allowFontScaling={false} style={styles.subtitle}>Sign in to access your data entry dashboard</Text>
             </View>
 
             <View style={styles.form}>
               <View>
-                <Text style={styles.label}>Employee ID</Text>
-                <TextInput
+                <Text allowFontScaling={false} style={styles.label}>Employee ID</Text>
+                <Text allowFontScaling={false}Input
                   style={styles.input}
                   placeholder="Enter your ID"
                   value={employeeId}
@@ -61,8 +61,8 @@ export default function LoginScreen() {
               </View>
 
               <View>
-                <Text style={[styles.label, { marginTop: 16 }]}>Password</Text>
-                <TextInput
+                <Text allowFontScaling={false} style={[styles.label, { marginTop: 16 }]}>Password</Text>
+                <Text allowFontScaling={false}Input
                   style={styles.input}
                   placeholder="Enter password"
                   value={password}
@@ -79,7 +79,7 @@ export default function LoginScreen() {
                 {loading ? (
                   <ActivityIndicator color="#ffffff" />
                 ) : (
-                  <Text style={styles.buttonText}>Sign In</Text>
+                  <Text allowFontScaling={false} style={styles.buttonText}>Sign In</Text>
                 )}
               </TouchableOpacity>
             </View>

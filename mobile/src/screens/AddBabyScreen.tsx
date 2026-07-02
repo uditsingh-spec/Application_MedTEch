@@ -277,12 +277,12 @@ export default function AddBabyScreen() {
 
   const renderInput = (name: any, placeholder: string, keyboardType: any = 'default', label: string, isRequired: boolean = true, nextField?: string) => (
     <View style={styles.fieldContainer}>
-      <Text style={styles.label}>{label} {isRequired ? '*' : ''}</Text>
+      <Text allowFontScaling={false} style={styles.label}>{label} {isRequired ? '*' : ''}</Text>
       <Controller
         control={control}
         name={name}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
+          <Text allowFontScaling={false}Input
             ref={(el) => { inputRefs.current[name] = el; }}
             style={[styles.input, errors[name] ? styles.inputError : undefined]}
             onBlur={onBlur}
@@ -296,13 +296,13 @@ export default function AddBabyScreen() {
           />
         )}
       />
-      {errors[name]?.message ? <Text style={styles.errorText}>{errors[name]?.message as string}</Text> : null}
+      {errors[name]?.message ? <Text allowFontScaling={false} style={styles.errorText}>{errors[name]?.message as string}</Text> : null}
     </View>
   );
 
   const renderRadioGroup = (name: any, options: string[], label: string) => (
     <View style={styles.fieldContainer}>
-      <Text style={styles.label}>{label} *</Text>
+      <Text allowFontScaling={false} style={styles.label}>{label} *</Text>
       <Controller
         control={control}
         name={name}
@@ -317,13 +317,13 @@ export default function AddBabyScreen() {
                 <View style={{ height: 20, width: 20, borderRadius: 10, borderWidth: 2, borderColor: value === opt ? '#4f46e5' : '#cbd5e1', alignItems: 'center', justifyContent: 'center' }}>
                   {value === opt && <View style={{ height: 10, width: 10, borderRadius: 5, backgroundColor: '#4f46e5' }} />}
                 </View>
-                <Text style={{ fontSize: 16, color: '#334155' }}>{opt}</Text>
+                <Text allowFontScaling={false} style={{ fontSize: 16, color: '#334155' }}>{opt}</Text>
               </TouchableOpacity>
             ))}
           </View>
         )}
       />
-      {errors[name]?.message ? <Text style={styles.errorText}>{errors[name]?.message as string}</Text> : null}
+      {errors[name]?.message ? <Text allowFontScaling={false} style={styles.errorText}>{errors[name]?.message as string}</Text> : null}
     </View>
   );
 
@@ -336,7 +336,7 @@ export default function AddBabyScreen() {
 
   const renderDatePicker = () => (
     <View style={styles.fieldContainer}>
-      <Text style={styles.label}>Date of Birth *</Text>
+      <Text allowFontScaling={false} style={styles.label}>Date of Birth *</Text>
       <Controller
         control={control}
         name="dob"
@@ -346,7 +346,7 @@ export default function AddBabyScreen() {
               style={[styles.input, errors.dob ? styles.inputError : undefined, { justifyContent: 'center', height: 48 }]}
               onPress={() => setShowDatePicker(true)}
             >
-              <Text style={{ color: value ? '#0f172a' : '#94a3b8' }}>
+              <Text allowFontScaling={false} style={{ color: value ? '#0f172a' : '#94a3b8' }}>
                 {formatDateDisplay(value as string)}
               </Text>
             </TouchableOpacity>
@@ -367,7 +367,7 @@ export default function AddBabyScreen() {
           </>
         )}
       />
-      {errors.dob?.message ? <Text style={styles.errorText}>{errors.dob?.message as string}</Text> : null}
+      {errors.dob?.message ? <Text allowFontScaling={false} style={styles.errorText}>{errors.dob?.message as string}</Text> : null}
     </View>
   );
 
@@ -378,7 +378,7 @@ export default function AddBabyScreen() {
         <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 8, marginRight: 8 }}>
           <ArrowLeft size={24} color="#334155" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{babyId ? 'Edit Baby' : 'Add New Baby'}</Text>
+        <Text allowFontScaling={false} style={styles.headerTitle}>{babyId ? 'Edit Baby' : 'Add New Baby'}</Text>
       </View>
       {fetching ? (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -399,12 +399,12 @@ export default function AddBabyScreen() {
             <View style={{ gap: 16 }}>
 
               <View style={styles.card}>
-                <Text style={styles.cardTitle}>Mother's Information</Text>
+                <Text allowFontScaling={false} style={styles.cardTitle}>Mother's Information</Text>
                 {renderInput('motherName', 'Full Name', 'default', 'Mother\'s Name', true, 'motherAge')}
                 {renderInput('motherAge', 'e.g. 28', 'numeric', 'Mother\'s Age', true, 'gestationalAgeWeeks')}
 
                 <View style={styles.fieldContainer}>
-                  <Text style={styles.label}>Mother's Photo (Optional)</Text>
+                  <Text allowFontScaling={false} style={styles.label}>Mother's Photo (Optional)</Text>
                   {imageUri ? (
                     <View style={styles.imagePreviewContainer}>
                       <Image source={{ uri: imageUri }} style={styles.imagePreview} />
@@ -416,11 +416,11 @@ export default function AddBabyScreen() {
                     <View style={{ flexDirection: 'row', gap: 12 }}>
                       <TouchableOpacity style={[styles.imagePickerBtn, { flex: 1 }]} onPress={pickImage}>
                         <ImagePlus size={24} color="#4f46e5" />
-                        <Text style={styles.imagePickerText}>Upload Photo</Text>
+                        <Text allowFontScaling={false} style={styles.imagePickerText}>Upload Photo</Text>
                       </TouchableOpacity>
                       <TouchableOpacity style={[styles.imagePickerBtn, { flex: 1 }]} onPress={takePhoto}>
                         <Camera size={24} color="#4f46e5" />
-                        <Text style={styles.imagePickerText}>Take Photo</Text>
+                        <Text allowFontScaling={false} style={styles.imagePickerText}>Take Photo</Text>
                       </TouchableOpacity>
                     </View>
                   )}
@@ -428,11 +428,11 @@ export default function AddBabyScreen() {
               </View>
 
               <View style={styles.card}>
-                <Text style={styles.cardTitle}>Baby Configuration</Text>
+                <Text allowFontScaling={false} style={styles.cardTitle}>Baby Configuration</Text>
 
                 {!babyId && (
                   <View style={[styles.fieldContainer, styles.rowBetween]}>
-                    <Text style={[styles.label, { marginBottom: 0 }]}>Are they twins?</Text>
+                    <Text allowFontScaling={false} style={[styles.label, { marginBottom: 0 }]}>Are they twins?</Text>
                     <Controller
                       control={control}
                       name="isTwin"
@@ -444,7 +444,7 @@ export default function AddBabyScreen() {
                 )}
 
                 <View style={styles.fieldContainer}>
-                  <Text style={[styles.label, { fontSize: 16 }]}>Gestational Age : *</Text>
+                  <Text allowFontScaling={false} style={[styles.label, { fontSize: 16 }]}>Gestational Age : *</Text>
                   <View style={{ flexDirection: 'row', gap: 16 }}>
                     <View style={{ flex: 1 }}>{renderInput('gestationalAgeWeeks', 'e.g. 36', 'numeric', 'weeks', false, 'gestationalAgeDays')}</View>
                     <View style={{ flex: 1 }}>{renderInput('gestationalAgeDays', '0-6', 'numeric', 'days', false, isTwin ? 'weightA' : 'weight')}</View>
@@ -457,7 +457,7 @@ export default function AddBabyScreen() {
 
               {!isTwin ? (
                 <View style={styles.card}>
-                  <Text style={styles.cardTitle}>Single Baby</Text>
+                  <Text allowFontScaling={false} style={styles.cardTitle}>Single Baby</Text>
                   {renderInput('weight', 'e.g. 2.5 or 2500', 'numeric', 'Weight', true, 'skinForehead')}
                   {renderRadioGroup('gender', ['Male', 'Female'], 'Gender')}
                   <View style={{ flexDirection: 'row', gap: 16 }}>
@@ -468,7 +468,7 @@ export default function AddBabyScreen() {
               ) : (
                 <>
                   <View style={[styles.card, { backgroundColor: '#faf5ff', borderColor: '#e9d5ff' }]}>
-                    <Text style={[styles.cardTitle, { color: '#6b21a8' }]}>Twin 1</Text>
+                    <Text allowFontScaling={false} style={[styles.cardTitle, { color: '#6b21a8' }]}>Twin 1</Text>
                     {renderInput('weightA', 'e.g. 2.5 or 2500', 'numeric', 'Weight', true, 'skinForeheadA')}
                     {renderRadioGroup('genderA', ['Male', 'Female'], 'Gender')}
                     <View style={{ flexDirection: 'row', gap: 16 }}>
@@ -478,7 +478,7 @@ export default function AddBabyScreen() {
                   </View>
 
                   <View style={[styles.card, { backgroundColor: '#faf5ff', borderColor: '#e9d5ff' }]}>
-                    <Text style={[styles.cardTitle, { color: '#6b21a8' }]}>Twin 2</Text>
+                    <Text allowFontScaling={false} style={[styles.cardTitle, { color: '#6b21a8' }]}>Twin 2</Text>
                     {renderInput('weightB', 'e.g. 2.5 or 2500', 'numeric', 'Weight', true, 'skinForeheadB')}
                     {renderRadioGroup('genderB', ['Male', 'Female'], 'Gender')}
                     <View style={{ flexDirection: 'row', gap: 16 }}>
@@ -490,7 +490,7 @@ export default function AddBabyScreen() {
               )}
 
               <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)} disabled={loading}>
-                {loading ? <ActivityIndicator color="#ffffff" /> : <Text style={styles.buttonText}>{babyId ? 'Update Baby' : 'Save & Register Baby'}</Text>}
+                {loading ? <ActivityIndicator color="#ffffff" /> : <Text allowFontScaling={false} style={styles.buttonText}>{babyId ? 'Update Baby' : 'Save & Register Baby'}</Text>}
               </TouchableOpacity>
             </View>
           </KeyboardAwareScrollView>
@@ -501,8 +501,8 @@ export default function AddBabyScreen() {
       <Modal visible={!!conflictBaby} transparent={true} animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Similar Baby Found</Text>
-            <Text style={styles.modalText}>
+            <Text allowFontScaling={false} style={styles.modalTitle}>Similar Baby Found</Text>
+            <Text allowFontScaling={false} style={styles.modalText}>
               A baby with the same Mother Name, Gender, Weight, and Gestational Age was previously added.
             </Text>
 
@@ -512,14 +512,14 @@ export default function AddBabyScreen() {
                   <Image source={{ uri: conflictBaby.motherImage }} style={styles.conflictImg} />
                 ) : (
                   <View style={styles.conflictImgPlaceholder}>
-                    <Text style={styles.conflictImgInitial}>
+                    <Text allowFontScaling={false} style={styles.conflictImgInitial}>
                       {conflictBaby.motherName.charAt(0).toUpperCase()}
                     </Text>
                   </View>
                 )}
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.conflictName}>{conflictBaby.motherName}</Text>
-                  <Text style={styles.conflictId}>{conflictBaby.displayId}</Text>
+                  <Text allowFontScaling={false} style={styles.conflictName}>{conflictBaby.motherName}</Text>
+                  <Text allowFontScaling={false} style={styles.conflictId}>{conflictBaby.displayId}</Text>
                 </View>
               </View>
             )}
@@ -532,15 +532,15 @@ export default function AddBabyScreen() {
                   if (conflictBaby) navigation.navigate('BabyDetails', { babyId: conflictBaby._id });
                 }}
               >
-                <Text style={styles.modalBtnSecondaryText}>Open Stored Details</Text>
+                <Text allowFontScaling={false} style={styles.modalBtnSecondaryText}>Open Stored Details</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.modalBtn, styles.modalBtnPrimary]} onPress={handleAddAnyway}>
-                <Text style={styles.modalBtnPrimaryText}>Add This Baby</Text>
+                <Text allowFontScaling={false} style={styles.modalBtnPrimaryText}>Add This Baby</Text>
               </TouchableOpacity>
             </View>
             
             <TouchableOpacity style={{ marginTop: 16 }} onPress={() => setConflictBaby(null)}>
-              <Text style={{ color: '#64748b', textAlign: 'center', fontWeight: '500' }}>Cancel</Text>
+              <Text allowFontScaling={false} style={{ color: '#64748b', textAlign: 'center', fontWeight: '500' }}>Cancel</Text>
             </TouchableOpacity>
           </View>
         </View>

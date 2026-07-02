@@ -114,22 +114,22 @@ const ReadingGrid = ({ device, title, control, errors, inputRefs, focusNext }: {
 
   return (
     <View style={styles.gridCard}>
-      <Text style={styles.gridTitle}>{title}</Text>
+      <Text allowFontScaling={false} style={styles.gridTitle}>{title}</Text>
 
       <View style={[styles.gridSection, f_error ? styles.gridSectionError : undefined]}>
-        <Text style={styles.gridSectionTitle}>Forehead</Text>
+        <Text allowFontScaling={false} style={styles.gridSectionTitle}>Forehead</Text>
         <View style={styles.gridRow}>
           {fields.map(n => {
             const name = `f${n}_${device}_f`;
             const nextName = n < 10 ? `f${n + 1}_${device}_f` : `f1_${device}_s`;
             return (
               <View key={`f_${n}`} style={styles.gridCell}>
-                <Text style={styles.gridLabel}>F{n}</Text>
+                <Text allowFontScaling={false} style={styles.gridLabel}>F{n}</Text>
                 <Controller
                   control={control}
                   name={name}
                   render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
+                    <Text allowFontScaling={false}Input
                       ref={(el) => { inputRefs.current[name] = el; }}
                       style={[styles.gridInput, f_error && (value === '' || value == null) ? styles.gridInputError : undefined]}
                       keyboardType="numeric"
@@ -146,11 +146,11 @@ const ReadingGrid = ({ device, title, control, errors, inputRefs, focusNext }: {
             );
           })}
         </View>
-        {f_error ? <Text style={styles.errorText}>{f_error as string}</Text> : null}
+        {f_error ? <Text allowFontScaling={false} style={styles.errorText}>{f_error as string}</Text> : null}
       </View>
 
       <View style={[styles.gridSection, s_error ? styles.gridSectionError : undefined]}>
-        <Text style={styles.gridSectionTitle}>Sternum</Text>
+        <Text allowFontScaling={false} style={styles.gridSectionTitle}>Sternum</Text>
         <View style={styles.gridRow}>
           {fields.map(n => {
             const name = `f${n}_${device}_s`;
@@ -160,12 +160,12 @@ const ReadingGrid = ({ device, title, control, errors, inputRefs, focusNext }: {
 
             return (
               <View key={`s_${n}`} style={styles.gridCell}>
-                <Text style={styles.gridLabel}>S{n}</Text>
+                <Text allowFontScaling={false} style={styles.gridLabel}>S{n}</Text>
                 <Controller
                   control={control}
                   name={name}
                   render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
+                    <Text allowFontScaling={false}Input
                       ref={(el) => { inputRefs.current[name] = el; }}
                       style={[styles.gridInput, s_error && (value === '' || value == null) ? styles.gridInputError : undefined]}
                       keyboardType="numeric"
@@ -182,7 +182,7 @@ const ReadingGrid = ({ device, title, control, errors, inputRefs, focusNext }: {
             );
           })}
         </View>
-        {s_error ? <Text style={styles.errorText}>{s_error as string}</Text> : null}
+        {s_error ? <Text allowFontScaling={false} style={styles.errorText}>{s_error as string}</Text> : null}
       </View>
     </View>
   );
@@ -329,12 +329,12 @@ export default function SampleFormScreen() {
 
   const renderInput = (name: any, placeholder: string, label: string, nextField?: string) => (
     <View style={styles.fieldContainer}>
-      <Text style={styles.label}>{label}</Text>
+      <Text allowFontScaling={false} style={styles.label}>{label}</Text>
       <Controller
         control={control}
         name={name}
         render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
+          <Text allowFontScaling={false}Input
             ref={(el) => { inputRefs.current[name] = el; }}
             style={[styles.input, errors[name] ? styles.inputError : undefined]}
             onBlur={onBlur}
@@ -348,7 +348,7 @@ export default function SampleFormScreen() {
           />
         )}
       />
-      {errors[name]?.message ? <Text style={styles.errorText}>{errors[name]?.message as string}</Text> : null}
+      {errors[name]?.message ? <Text allowFontScaling={false} style={styles.errorText}>{errors[name]?.message as string}</Text> : null}
     </View>
   );
 
@@ -366,7 +366,7 @@ export default function SampleFormScreen() {
         <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 8, marginRight: 8 }}>
           <ArrowLeft size={24} color="#334155" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{sampleId ? 'Edit Sample' : 'Add Sample'}</Text>
+        <Text allowFontScaling={false} style={styles.headerTitle}>{sampleId ? 'Edit Sample' : 'Add Sample'}</Text>
       </View>
 
       <KeyboardAwareScrollView
@@ -382,26 +382,26 @@ export default function SampleFormScreen() {
         <View style={{ gap: 16 }}>
 
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>General</Text>
+            <Text allowFontScaling={false} style={styles.cardTitle}>General</Text>
             {renderInput('weight', 'e.g. 2.5 or 2500', 'Weight', 'mbj20_f')}
           </View>
 
           <View style={[styles.card, { backgroundColor: '#eff6ff', borderColor: '#dbeafe' }]}>
-            <Text style={[styles.cardTitle, { color: '#1e3a8a' }]}>Machine 1: MBJ20</Text>
+            <Text allowFontScaling={false} style={[styles.cardTitle, { color: '#1e3a8a' }]}>Machine 1: MBJ20</Text>
             <View style={{ flexDirection: 'row', gap: 16 }}>
               <View style={{ flex: 1 }}>{renderInput('mbj20_f', '', 'Forehead', 'mbj20_s')}</View>
               <View style={{ flex: 1 }}>{renderInput('mbj20_s', '', 'Sternum', 'jm103_s')}</View>
             </View>
-            {errors.mbj20_f?.message ? <Text style={styles.errorText}>{errors.mbj20_f.message as string}</Text> : null}
+            {errors.mbj20_f?.message ? <Text allowFontScaling={false} style={styles.errorText}>{errors.mbj20_f.message as string}</Text> : null}
           </View>
 
           <View style={[styles.card, { backgroundColor: '#ecfdf5', borderColor: '#d1fae5' }]}>
-            <Text style={[styles.cardTitle, { color: '#064e3b' }]}>Machine 2: JM103</Text>
+            <Text allowFontScaling={false} style={[styles.cardTitle, { color: '#064e3b' }]}>Machine 2: JM103</Text>
             {renderInput('jm103_s', '', 'Sternum', 'tsb')}
           </View>
 
           <View style={[styles.card, { backgroundColor: '#faf5ff', borderColor: '#f3e8ff' }]}>
-            <Text style={[styles.cardTitle, { color: '#581c87' }]}>Machine 3: TSB</Text>
+            <Text allowFontScaling={false} style={[styles.cardTitle, { color: '#581c87' }]}>Machine 3: TSB</Text>
             {renderInput('tsb', '', 'TSB Reading', 'f1_d4_f')}
           </View>
 
@@ -413,7 +413,7 @@ export default function SampleFormScreen() {
           </View>
 
           <TouchableOpacity style={styles.button} onPress={handleSubmit(onSubmit)} disabled={loading}>
-            {loading ? <ActivityIndicator color="#ffffff" /> : <Text style={styles.buttonText}>{sampleId ? 'Update Sample' : 'Save Sample'}</Text>}
+            {loading ? <ActivityIndicator color="#ffffff" /> : <Text allowFontScaling={false} style={styles.buttonText}>{sampleId ? 'Update Sample' : 'Save Sample'}</Text>}
           </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>

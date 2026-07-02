@@ -209,7 +209,7 @@ export default function BabyDetailsScreen() {
   if (!baby) {
     return (
       <SafeAreaView style={styles.centered}>
-        <Text>Baby not found</Text>
+        <Text allowFontScaling={false}>Baby not found</Text>
       </SafeAreaView>
     );
   }
@@ -221,7 +221,7 @@ export default function BabyDetailsScreen() {
         <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 8 }}>
           <ArrowLeft size={24} color="#334155" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Baby Details</Text>
+        <Text allowFontScaling={false} style={styles.headerTitle}>Baby Details</Text>
         <View style={{ width: 32 }} />
       </View>
 
@@ -238,12 +238,12 @@ export default function BabyDetailsScreen() {
               </TouchableOpacity>
             ) : (
               <View style={{ width: 64, height: 64, borderRadius: 32, marginRight: 14, marginTop: 2, backgroundColor: '#e2e8f0', justifyContent: 'center', alignItems: 'center', flexShrink: 0 }}>
-                <Text style={{ fontSize: 24, color: '#64748b', fontWeight: 'bold' }}>{baby.motherName.charAt(0).toUpperCase()}</Text>
+                <Text allowFontScaling={false} style={{ fontSize: 24, color: '#64748b', fontWeight: 'bold' }}>{baby.motherName.charAt(0).toUpperCase()}</Text>
               </View>
             )}
             <View style={{ flex: 1, minWidth: 0 }}>
               <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                <Text style={[styles.infoTitle, { flexShrink: 1, flexWrap: 'wrap', marginRight: 8 }]}>{baby.motherName}</Text>
+                <Text allowFontScaling={false} style={[styles.infoTitle, { flexShrink: 1, flexWrap: 'wrap', marginRight: 8 }]}>{baby.motherName}</Text>
                 <TouchableOpacity 
                   style={{ padding: 4, flexShrink: 0 }} 
                   onPress={() => navigation.navigate('AddBaby', { babyId: baby._id })}
@@ -251,55 +251,55 @@ export default function BabyDetailsScreen() {
                   <Pencil size={20} color="#64748b" />
                 </TouchableOpacity>
               </View>
-              <Text style={styles.infoSubtitle} numberOfLines={2} ellipsizeMode="tail">{baby.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2')?.replace(/-([^-]+)$/, '-​$1')}</Text>
+              <Text allowFontScaling={false} style={styles.infoSubtitle} numberOfLines={2} ellipsizeMode="tail">{baby.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2')?.replace(/-([^-]+)$/, '-​$1')}</Text>
             </View>
           </View>
           
           <View style={styles.infoGrid}>
             <View style={styles.infoItem}>
-              <Text style={styles.infoLabel}>Gender</Text>
-              <Text style={styles.infoValue}>{baby.gender}</Text>
+              <Text allowFontScaling={false} style={styles.infoLabel}>Gender</Text>
+              <Text allowFontScaling={false} style={styles.infoValue}>{baby.gender}</Text>
             </View>
             <View style={styles.infoItem}>
-              <Text style={styles.infoLabel}>Birth Weight</Text>
-              <Text style={styles.infoValue}>{baby.weight}g</Text>
+              <Text allowFontScaling={false} style={styles.infoLabel}>Birth Weight</Text>
+              <Text allowFontScaling={false} style={styles.infoValue}>{baby.weight}g</Text>
             </View>
             <View style={styles.infoItem}>
-              <Text style={styles.infoLabel}>Gestational Age</Text>
-              <Text style={styles.infoValue}>
+              <Text allowFontScaling={false} style={styles.infoLabel}>Gestational Age</Text>
+              <Text allowFontScaling={false} style={styles.infoValue}>
                 {baby.gestationalAge} {baby.termStatus ? `(${baby.termStatus})` : ''}
               </Text>
             </View>
             <View style={styles.infoItem}>
-              <Text style={styles.infoLabel}>DOB</Text>
-              <Text style={styles.infoValue}>
+              <Text allowFontScaling={false} style={styles.infoLabel}>DOB</Text>
+              <Text allowFontScaling={false} style={styles.infoValue}>
                 {formatDateDDMMYYYY(baby.dob)}
               </Text>
             </View>
             <View style={styles.infoItem}>
-              <Text style={styles.infoLabel}>Mother Age</Text>
-              <Text style={styles.infoValue}>{baby.motherAge ? `${baby.motherAge} years` : 'N/A'}</Text>
+              <Text allowFontScaling={false} style={styles.infoLabel}>Mother Age</Text>
+              <Text allowFontScaling={false} style={styles.infoValue}>{baby.motherAge ? `${baby.motherAge} years` : 'N/A'}</Text>
             </View>
           </View>
           
           <View style={{ flexDirection: 'row', gap: 12, marginTop: 4 }}>
             <View style={{ flex: 1, backgroundColor: '#f8fafc', padding: 12, borderRadius: 12, borderWidth: 1, borderColor: '#f1f5f9' }}>
-              <Text style={styles.infoLabel}>Skin (Forehead)</Text>
-              <Text style={styles.infoValue}>{baby.skinForehead ?? 'N/A'}</Text>
+              <Text allowFontScaling={false} style={styles.infoLabel}>Skin (Forehead)</Text>
+              <Text allowFontScaling={false} style={styles.infoValue}>{baby.skinForehead ?? 'N/A'}</Text>
             </View>
             <View style={{ flex: 1, backgroundColor: '#f8fafc', padding: 12, borderRadius: 12, borderWidth: 1, borderColor: '#f1f5f9' }}>
-              <Text style={styles.infoLabel}>Skin (Sternum)</Text>
-              <Text style={styles.infoValue}>{baby.skinSternum ?? 'N/A'}</Text>
+              <Text allowFontScaling={false} style={styles.infoLabel}>Skin (Sternum)</Text>
+              <Text allowFontScaling={false} style={styles.infoValue}>{baby.skinSternum ?? 'N/A'}</Text>
             </View>
           </View>
         </View>
 
         {/* Samples List */}
         <View style={{ paddingHorizontal: 16, paddingBottom: 96 }}>
-          <Text style={styles.sectionTitle}>Daily Samples</Text>
+          <Text allowFontScaling={false} style={styles.sectionTitle}>Daily Samples</Text>
           {samples.length === 0 ? (
             <View style={styles.emptyCard}>
-              <Text style={{ color: '#64748b' }}>No samples recorded yet.</Text>
+              <Text allowFontScaling={false} style={{ color: '#64748b' }}>No samples recorded yet.</Text>
             </View>
           ) : (
             samples.map((sample) => (
@@ -309,17 +309,17 @@ export default function BabyDetailsScreen() {
                 onPress={() => navigation.navigate('SampleForm', { babyId: baby._id, sampleId: sample._id })}
               >
                 <View style={{ flex: 1, paddingRight: 8 }}>
-                  <Text style={styles.sampleTitle}>Sample #{sample.sampleNumber}</Text>
-                  <Text style={styles.sampleSubtitle}>{sample.createdDate} at {sample.createdTime}</Text>
+                  <Text allowFontScaling={false} style={styles.sampleTitle}>Sample #{sample.sampleNumber}</Text>
+                  <Text allowFontScaling={false} style={styles.sampleSubtitle}>{sample.createdDate} at {sample.createdTime}</Text>
                   {sample.remarks ? (
-                    <Text style={{ fontSize: 13, color: '#475569', marginTop: 4, fontStyle: 'italic' }} numberOfLines={2}>
+                    <Text allowFontScaling={false} style={{ fontSize: 13, color: '#475569', marginTop: 4, fontStyle: 'italic' }} numberOfLines={2}>
                       "{sample.remarks}"
                     </Text>
                   ) : null}
                 </View>
                 <View style={{ alignItems: 'flex-end' }}>
-                  <Text style={styles.sampleWeight}>Weight: {sample.weight}g</Text>
-                  <Text style={styles.sampleEdit}>Tap to edit</Text>
+                  <Text allowFontScaling={false} style={styles.sampleWeight}>Weight: {sample.weight}g</Text>
+                  <Text allowFontScaling={false} style={styles.sampleEdit}>Tap to edit</Text>
                 </View>
               </TouchableOpacity>
             ))

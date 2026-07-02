@@ -61,7 +61,7 @@ export const GlobalSyncBanner: React.FC = () => {
           {syncStatus === 'syncing' ? (
             <ActivityIndicator size="small" color="#fff" style={{ marginRight: 8 }} />
           ) : null}
-          <Text style={styles.syncText}>
+          <Text allowFontScaling={false} style={styles.syncText}>
             {syncStatus === 'syncing' ? 'Syncing...' : syncStatus === 'failed' ? 'Sync failed' : 'Synced successfully'}
           </Text>
         </View>
@@ -71,8 +71,8 @@ export const GlobalSyncBanner: React.FC = () => {
       <Modal visible={!!conflictData} transparent={true} animationType="fade">
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Similar Baby Found During Sync</Text>
-            <Text style={styles.modalText}>
+            <Text allowFontScaling={false} style={styles.modalTitle}>Similar Baby Found During Sync</Text>
+            <Text allowFontScaling={false} style={styles.modalText}>
               An offline record matches an existing baby on the server. Do you want to add it anyway?
             </Text>
 
@@ -82,24 +82,24 @@ export const GlobalSyncBanner: React.FC = () => {
                   <Image source={{ uri: conflictData.existingBaby.motherImage }} style={styles.conflictImg} />
                 ) : (
                   <View style={styles.conflictImgPlaceholder}>
-                    <Text style={styles.conflictImgInitial}>
+                    <Text allowFontScaling={false} style={styles.conflictImgInitial}>
                       {conflictData.existingBaby.motherName.charAt(0).toUpperCase()}
                     </Text>
                   </View>
                 )}
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.conflictName}>{conflictData.existingBaby.motherName}</Text>
-                  <Text style={styles.conflictId}>{conflictData.existingBaby.displayId}</Text>
+                  <Text allowFontScaling={false} style={styles.conflictName}>{conflictData.existingBaby.motherName}</Text>
+                  <Text allowFontScaling={false} style={styles.conflictId}>{conflictData.existingBaby.displayId}</Text>
                 </View>
               </View>
             )}
 
             <View style={styles.modalButtons}>
               <TouchableOpacity style={[styles.modalBtn, styles.modalBtnSecondary]} onPress={handleDiscard}>
-                <Text style={styles.modalBtnSecondaryText}>Discard & View</Text>
+                <Text allowFontScaling={false} style={styles.modalBtnSecondaryText}>Discard & View</Text>
               </TouchableOpacity>
               <TouchableOpacity style={[styles.modalBtn, styles.modalBtnPrimary]} onPress={handleAddAnyway}>
-                <Text style={styles.modalBtnPrimaryText}>Add Anyway</Text>
+                <Text allowFontScaling={false} style={styles.modalBtnPrimaryText}>Add Anyway</Text>
               </TouchableOpacity>
             </View>
           </View>

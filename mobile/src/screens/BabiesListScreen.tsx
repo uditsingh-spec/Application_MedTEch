@@ -277,7 +277,7 @@ export default function BabiesListScreen() {
         <View style={[styles.card, { backgroundColor: '#eef2ff', borderColor: '#e0e7ff' }]}>
           <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
             <Users size={20} color="#3730a3" />
-            <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#3730a3', marginLeft: 8 }}>Select Twin</Text>
+            <Text allowFontScaling={false} style={{ fontSize: 16, fontWeight: 'bold', color: '#3730a3', marginLeft: 8 }}>Select Twin</Text>
           </View>
           
           {item.twins?.map((twin) => (
@@ -288,14 +288,14 @@ export default function BabiesListScreen() {
             >
               <View style={{ flexShrink: 1 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
-                  <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#1e293b', flexShrink: 1 }} numberOfLines={1} ellipsizeMode="tail">
+                  <Text allowFontScaling={false} style={{ fontSize: 14, fontWeight: 'bold', color: '#1e293b', flexShrink: 1 }} numberOfLines={1} ellipsizeMode="tail">
                     Twin {twin.twinLabel === 'A' ? '1' : twin.twinLabel === 'B' ? '2' : twin.twinLabel}
                   </Text>
                   <View style={[styles.badge, { backgroundColor: '#f1f5f9', marginLeft: 8, paddingHorizontal: 6, paddingVertical: 2, flexShrink: 0 }]}>
-                    <Text style={{ fontSize: 11, fontWeight: '600', color: '#475569' }} numberOfLines={1} ellipsizeMode="tail">{twin.gender}</Text>
+                    <Text allowFontScaling={false} style={{ fontSize: 11, fontWeight: '600', color: '#475569' }} numberOfLines={1} ellipsizeMode="tail">{twin.gender}</Text>
                   </View>
                 </View>
-                <Text style={{ fontSize: 12, color: '#64748b' }} numberOfLines={1} ellipsizeMode="tail">
+                <Text allowFontScaling={false} style={{ fontSize: 12, color: '#64748b' }} numberOfLines={1} ellipsizeMode="tail">
                   {twin.termStatus || 'Term'} • {twin.weight} g {twin.dob ? `• DOB: ${formatDateDDMMYYYY(twin.dob)}` : ''}
                 </Text>
               </View>
@@ -304,7 +304,7 @@ export default function BabiesListScreen() {
           ))}
           
           <TouchableOpacity onPress={() => setExpandedGroupId(null)} style={{ paddingVertical: 8, alignItems: 'center' }}>
-            <Text style={{ fontSize: 13, color: '#64748b' }}>Cancel</Text>
+            <Text allowFontScaling={false} style={{ fontSize: 13, color: '#64748b' }}>Cancel</Text>
           </TouchableOpacity>
         </View>
       );
@@ -328,36 +328,36 @@ export default function BabiesListScreen() {
             </TouchableOpacity>
           ) : (
             <View style={{ width: 48, height: 48, borderRadius: 24, marginRight: 12, marginTop: 2, backgroundColor: '#f8fafc', justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#e2e8f0', flexShrink: 0 }}>
-              {item.isGroup ? <Users size={24} color="#94a3b8" /> : <Text style={{ fontSize: 20, color: '#64748b', fontWeight: 'bold' }}>{item.motherName.charAt(0).toUpperCase()}</Text>}
+              {item.isGroup ? <Users size={24} color="#94a3b8" /> : <Text allowFontScaling={false} style={{ fontSize: 20, color: '#64748b', fontWeight: 'bold' }}>{item.motherName.charAt(0).toUpperCase()}</Text>}
             </View>
           )}
           <View style={{ flex: 1, minWidth: 0 }}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 4 }}>
-              <Text style={styles.cardTitle}>{item.motherName}</Text>
+              <Text allowFontScaling={false} style={styles.cardTitle}>{item.motherName}</Text>
               {!item.isGroup && item.dob && (
-                <Text style={styles.cardDob}>DOB: {formatDateDDMMYYYY(item.dob)}</Text>
+                <Text allowFontScaling={false} style={styles.cardDob}>DOB: {formatDateDDMMYYYY(item.dob)}</Text>
               )}
             </View>
             
             <View style={{ marginTop: 2 }}>
-              <Text style={styles.cardSubtitle} numberOfLines={2} ellipsizeMode="tail">{item.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2')}</Text>
+              <Text allowFontScaling={false} style={styles.cardSubtitle} numberOfLines={2} ellipsizeMode="tail">{item.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2')}</Text>
             </View>
             
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, flexWrap: 'wrap', gap: 6 }}>
               {item.isGroup ? (
                 <View style={[styles.badge, { backgroundColor: '#f3e8ff', borderWidth: 1, borderColor: '#e9d5ff' }]}>
-                  <Text style={[styles.badgeText, { color: '#7e22ce' }]}>Twins</Text>
+                  <Text allowFontScaling={false} style={[styles.badgeText, { color: '#7e22ce' }]}>Twins</Text>
                 </View>
               ) : (
                 <>
                   <View style={[styles.badge, { backgroundColor: item.gender === 'Male' ? '#eff6ff' : '#fdf2f8' }]}>
-                    <Text style={[styles.badgeText, { color: item.gender === 'Male' ? '#3b82f6' : '#ec4899' }]}>{item.gender}</Text>
+                    <Text allowFontScaling={false} style={[styles.badgeText, { color: item.gender === 'Male' ? '#3b82f6' : '#ec4899' }]}>{item.gender}</Text>
                   </View>
                   <View style={[styles.badge, { backgroundColor: item.termStatus === 'Term' ? '#dcfce7' : '#ffedd5' }]}>
-                    <Text style={[styles.badgeText, { color: item.termStatus === 'Term' ? '#22c55e' : '#f97316' }]}>{item.termStatus || 'Term'}</Text>
+                    <Text allowFontScaling={false} style={[styles.badgeText, { color: item.termStatus === 'Term' ? '#22c55e' : '#f97316' }]}>{item.termStatus || 'Term'}</Text>
                   </View>
                   <View style={styles.weightBadge}>
-                    <Text style={styles.weightText}>{item.weight} g</Text>
+                    <Text allowFontScaling={false} style={styles.weightText}>{item.weight} g</Text>
                   </View>
                 </>
               )}
@@ -366,7 +366,7 @@ export default function BabiesListScreen() {
         </View>
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: '#f1f5f9' }}>
-          <Text style={styles.registeredDate}>
+          <Text allowFontScaling={false} style={styles.registeredDate}>
             {formatDateDDMMYYYY(item.registeredAt)}
           </Text>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
@@ -402,8 +402,8 @@ export default function BabiesListScreen() {
       {/* Header */}
       <View style={styles.header}>
         <View>
-          <Text style={styles.headerTitle}>BiliSure</Text>
-          <Text style={styles.headerSubtitle}>Hello, {user?.name}</Text>
+          <Text allowFontScaling={false} style={styles.headerTitle}>BiliSure</Text>
+          <Text allowFontScaling={false} style={styles.headerSubtitle}>Hello, {user?.name}</Text>
         </View>
         <TouchableOpacity onPress={logout} style={styles.logoutButton}>
           <LogOut size={20} color="#ef4444" />
@@ -414,9 +414,9 @@ export default function BabiesListScreen() {
       <View style={{ paddingHorizontal: 24, paddingTop: 16 }}>
         <View style={styles.searchContainer}>
           <Search size={20} color="#94a3b8" />
-          <TextInput
+          <Text allowFontScaling={false}Input
             style={styles.searchInput}
-            placeholder="Enter mother name"
+            placeholder="Enter Mother name"
             value={search}
             onChangeText={setSearch}
           />
@@ -430,19 +430,19 @@ export default function BabiesListScreen() {
             style={[styles.filterPill, genderFilter === 'Male' && styles.filterPillActive]}
             onPress={() => setGenderFilter(prev => prev === 'Male' ? null : 'Male')}
           >
-            <Text style={[styles.filterPillText, genderFilter === 'Male' && styles.filterPillTextActive]}>Male</Text>
+            <Text allowFontScaling={false} style={[styles.filterPillText, genderFilter === 'Male' && styles.filterPillTextActive]}>Male</Text>
           </TouchableOpacity>
           <TouchableOpacity 
             style={[styles.filterPill, genderFilter === 'Female' && styles.filterPillActive]}
             onPress={() => setGenderFilter(prev => prev === 'Female' ? null : 'Female')}
           >
-            <Text style={[styles.filterPillText, genderFilter === 'Female' && styles.filterPillTextActive]}>Female</Text>
+            <Text allowFontScaling={false} style={[styles.filterPillText, genderFilter === 'Female' && styles.filterPillTextActive]}>Female</Text>
           </TouchableOpacity>
           <TouchableOpacity 
             style={[styles.filterPill, twinsOnly && styles.filterPillActive]}
             onPress={() => setTwinsOnly(!twinsOnly)}
           >
-            <Text style={[styles.filterPillText, twinsOnly && styles.filterPillTextActive]}>Twins Only</Text>
+            <Text allowFontScaling={false} style={[styles.filterPillText, twinsOnly && styles.filterPillTextActive]}>Twins Only</Text>
           </TouchableOpacity>
         </View>
 
@@ -450,7 +450,7 @@ export default function BabiesListScreen() {
           style={styles.sortButton}
           onPress={() => setSort(prev => prev === 'latest' ? 'oldest' : 'latest')}
         >
-          <Text style={styles.sortText}>{sort === 'latest' ? 'Latest First' : 'Oldest First'}</Text>
+          <Text allowFontScaling={false} style={styles.sortText}>{sort === 'latest' ? 'Latest First' : 'Oldest First'}</Text>
         </TouchableOpacity>
       </View>
 
@@ -468,7 +468,7 @@ export default function BabiesListScreen() {
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           ListEmptyComponent={
             <View style={{ alignItems: 'center', paddingVertical: 40 }}>
-              <Text style={{ color: '#64748b', fontSize: 16 }}>No records found.</Text>
+              <Text allowFontScaling={false} style={{ color: '#64748b', fontSize: 16 }}>No records found.</Text>
             </View>
           }
         />
