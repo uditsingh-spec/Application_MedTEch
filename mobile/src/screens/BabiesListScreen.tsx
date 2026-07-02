@@ -336,10 +336,6 @@ export default function BabiesListScreen() {
               <Text allowFontScaling={false} style={styles.cardTitle}>{item.motherName}</Text>
             
               <Text allowFontScaling={false} style={styles.cardSubtitle} numberOfLines={2} ellipsizeMode="tail">{item.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2')}</Text>
-
-              {!item.isGroup && item.dob && (
-                <Text allowFontScaling={false} style={styles.cardDob}>DOB: {formatDateDDMMYYYY(item.dob)}</Text>
-              )}
             </View>
             
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, flexWrap: 'wrap', gap: 6 }}>
@@ -358,6 +354,11 @@ export default function BabiesListScreen() {
                   <View style={styles.weightBadge}>
                     <Text allowFontScaling={false} style={styles.weightText}>{item.weight} g</Text>
                   </View>
+                  {item.dob && (
+                    <View style={[styles.badge, { backgroundColor: '#fef3c7' }]}>
+                      <Text allowFontScaling={false} style={[styles.badgeText, { color: '#000000' }]}>DOB: {formatDateDDMMYYYY(item.dob)}</Text>
+                    </View>
+                  )}
                 </>
               )}
             </View>
@@ -416,6 +417,7 @@ export default function BabiesListScreen() {
           <TextInput allowFontScaling={false}
             style={styles.searchInput}
             placeholder="Enter Mother name"
+            placeholderTextColor="#000000"
             value={search}
             onChangeText={setSearch}
           />
