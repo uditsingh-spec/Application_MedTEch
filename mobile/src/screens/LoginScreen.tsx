@@ -51,7 +51,7 @@ export default function LoginScreen() {
             <View style={styles.form}>
               <View>
                 <Text allowFontScaling={false} style={styles.label}>Employee ID</Text>
-                <Text allowFontScaling={false}Input
+                <TextInput allowFontScaling={false}
                   style={styles.input}
                   placeholder="Enter your ID"
                   value={employeeId}
@@ -62,7 +62,7 @@ export default function LoginScreen() {
 
               <View>
                 <Text allowFontScaling={false} style={[styles.label, { marginTop: 16 }]}>Password</Text>
-                <Text allowFontScaling={false}Input
+                <TextInput allowFontScaling={false}
                   style={styles.input}
                   placeholder="Enter password"
                   value={password}

@@ -413,7 +413,7 @@ export default function BabiesListScreen() {
       <View style={{ paddingHorizontal: 24, paddingTop: 16 }}>
         <View style={styles.searchContainer}>
           <Search size={20} color="#94a3b8" />
-          <Text allowFontScaling={false}Input
+          <TextInput allowFontScaling={false}
             style={styles.searchInput}
             placeholder="Enter Mother name"
             value={search}

@@ -282,7 +282,7 @@ export default function AddBabyScreen() {
         control={control}
         name={name}
         render={({ field: { onChange, onBlur, value } }) => (
-          <Text allowFontScaling={false}Input
+          <TextInput allowFontScaling={false}
             ref={(el) => { inputRefs.current[name] = el; }}
             style={[styles.input, errors[name] ? styles.inputError : undefined]}
             onBlur={onBlur}

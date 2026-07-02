@@ -129,7 +129,7 @@ const ReadingGrid = ({ device, title, control, errors, inputRefs, focusNext }: {
                   control={control}
                   name={name}
                   render={({ field: { onChange, onBlur, value } }) => (
-                    <Text allowFontScaling={false}Input
+                    <TextInput allowFontScaling={false}
                       ref={(el) => { inputRefs.current[name] = el; }}
                       style={[styles.gridInput, f_error && (value === '' || value == null) ? styles.gridInputError : undefined]}
                       keyboardType="numeric"
@@ -165,7 +165,7 @@ const ReadingGrid = ({ device, title, control, errors, inputRefs, focusNext }: {
                   control={control}
                   name={name}
                   render={({ field: { onChange, onBlur, value } }) => (
-                    <Text allowFontScaling={false}Input
+                    <TextInput allowFontScaling={false}
                       ref={(el) => { inputRefs.current[name] = el; }}
                       style={[styles.gridInput, s_error && (value === '' || value == null) ? styles.gridInputError : undefined]}
                       keyboardType="numeric"
@@ -334,7 +334,7 @@ export default function SampleFormScreen() {
         control={control}
         name={name}
         render={({ field: { onChange, onBlur, value } }) => (
-          <Text allowFontScaling={false}Input
+          <TextInput allowFontScaling={false}
             ref={(el) => { inputRefs.current[name] = el; }}
             style={[styles.input, errors[name] ? styles.inputError : undefined]}
             onBlur={onBlur}
