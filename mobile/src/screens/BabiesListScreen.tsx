@@ -332,15 +332,14 @@ export default function BabiesListScreen() {
             </View>
           )}
           <View style={{ flex: 1, minWidth: 0 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 4 }}>
+            <View style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 2 }}>
               <Text allowFontScaling={false} style={styles.cardTitle}>{item.motherName}</Text>
+            
+              <Text allowFontScaling={false} style={styles.cardSubtitle} numberOfLines={2} ellipsizeMode="tail">{item.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2')}</Text>
+
               {!item.isGroup && item.dob && (
                 <Text allowFontScaling={false} style={styles.cardDob}>DOB: {formatDateDDMMYYYY(item.dob)}</Text>
               )}
-            </View>
-            
-            <View style={{ marginTop: 2 }}>
-              <Text allowFontScaling={false} style={styles.cardSubtitle} numberOfLines={2} ellipsizeMode="tail">{item.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2')}</Text>
             </View>
             
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, flexWrap: 'wrap', gap: 6 }}>
