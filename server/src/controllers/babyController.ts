@@ -45,16 +45,16 @@ export const createBaby = async (req: Request, res: Response, next: NextFunction
       }
     }
 
+    const forceSave = req.body.forceSave === 'true' || req.body.forceSave === true;
+
     if (validatedData.isTwin) {
       if (!validatedData.genderA || !validatedData.genderB || !validatedData.gestationalAge) {
-        res.status(400).json({ message: 'Missing required twin fields' });
+        res.status(400).json({ message: 'Missing required fields for twins' });
         return;
       }
 
-      // Twin Logic
       const baseIdA = generateBaseId(validatedData.motherName, validatedData.weightA, validatedData.genderA, validatedData.gestationalAge);
       const baseIdB = generateBaseId(validatedData.motherName, validatedData.weightB, validatedData.genderB, validatedData.gestationalAge);
-
       const forceSave = req.body.forceSave === 'true' || req.body.forceSave === true;
 
       if (!forceSave) {

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { View, Text, FlatList, TouchableOpacity, TextInput, ActivityIndicator, RefreshControl, StyleSheet, Image, Modal, TouchableWithoutFeedback, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Plus, Search, LogOut, Pencil, Trash2, Users, ArrowRight } from 'lucide-react-native';
 import api from '../services/api';
@@ -171,9 +171,11 @@ export default function BabiesListScreen() {
     }
   }, [search, genderFilter, twinsOnly, sort]);
 
-  useEffect(() => {
-    fetchBabies();
-  }, [fetchBabies]);
+  useFocusEffect(
+    useCallback(() => {
+      fetchBabies();
+    }, [fetchBabies])
+  );
 
   useEffect(() => {
     const { DeviceEventEmitter } = require('react-native');

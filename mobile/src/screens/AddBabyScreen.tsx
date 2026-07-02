@@ -90,7 +90,7 @@ export default function AddBabyScreen() {
     defaultValues: {
       isTwin: false,
       termStatus: 'Term',
-      dob: new Date().toISOString().split('T')[0]
+      dob: ''
     }
   });
 
