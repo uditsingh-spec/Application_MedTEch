@@ -13,5 +13,11 @@ export const useDeleteBaby = () => {
       // Invalidate babies list so the dashboard refreshes
       queryClient.invalidateQueries({ queryKey: ['babies'] });
     },
+    onError: (error: any) => {
+      console.error('[Delete Baby] Error:', error?.response?.status, error?.response?.data);
+      const msg = error?.response?.data?.message || 'Failed to delete baby. Please try again.';
+      alert(`Delete failed (${error?.response?.status ?? 'network error'}): ${msg}`);
+    },
   });
 };
+

@@ -125,7 +125,23 @@ export const syncPendingRequests = async () => {
         successfullySynced = true;
       } catch (err: any) {
         console.log(`Failed to sync request ${row.id}`, err.message, err.response?.data || 'No response data');
-        // Stop syncing to maintain chronological order
+        const status = err.response?.status;
+        if (status === 409 && err.response?.data?.code === 'DUPLICATE_BABY') {
+          // Pause sync and notify UI to show Duplicate Baby modal
+          DeviceEventEmitter.emit('syncDuplicateFound', {
+            queueId: row.id,
+            payload: payload,
+            existingBaby: err.response.data.existingBaby
+          });
+          break; // Stop syncing until user resolves
+        }
+        
+        if (status && status >= 400 && status < 500 && status !== 408 && status !== 429) {
+          // Unrecoverable client error (like 400 Bad Request, 401 Unauthorized), remove from queue
+          await db.runAsync('DELETE FROM sync_queue WHERE id = ?', row.id);
+          continue;
+        }
+        // Stop syncing to maintain chronological order for network errors
         break;
       }
     }

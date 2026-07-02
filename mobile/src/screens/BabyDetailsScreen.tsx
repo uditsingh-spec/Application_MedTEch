@@ -231,27 +231,27 @@ export default function BabyDetailsScreen() {
       >
         {/* Baby Info Card */}
         <View style={styles.infoCard}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
             {baby.motherImage ? (
-              <TouchableOpacity onPress={() => setSelectedImage(baby.motherImage || null)}>
-                <Image source={{ uri: baby.motherImage }} style={{ width: 64, height: 64, borderRadius: 32, marginRight: 16, backgroundColor: '#e2e8f0' }} />
+              <TouchableOpacity onPress={() => setSelectedImage(baby.motherImage || null)} style={{ marginRight: 14, marginTop: 2 }}>
+                <Image source={{ uri: baby.motherImage }} style={{ width: 64, height: 64, borderRadius: 32, backgroundColor: '#e2e8f0' }} />
               </TouchableOpacity>
             ) : (
-              <View style={{ width: 64, height: 64, borderRadius: 32, marginRight: 16, backgroundColor: '#e2e8f0', justifyContent: 'center', alignItems: 'center' }}>
+              <View style={{ width: 64, height: 64, borderRadius: 32, marginRight: 14, marginTop: 2, backgroundColor: '#e2e8f0', justifyContent: 'center', alignItems: 'center', flexShrink: 0 }}>
                 <Text style={{ fontSize: 24, color: '#64748b', fontWeight: 'bold' }}>{baby.motherName.charAt(0).toUpperCase()}</Text>
               </View>
             )}
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, minWidth: 0 }}>
               <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                <Text style={[styles.infoTitle, { flexShrink: 1 }]} numberOfLines={1} ellipsizeMode="tail">{baby.motherName}</Text>
+                <Text style={[styles.infoTitle, { flexShrink: 1, flexWrap: 'wrap', marginRight: 8 }]}>{baby.motherName}</Text>
                 <TouchableOpacity 
-                  style={{ padding: 4, marginLeft: 8 }} 
+                  style={{ padding: 4, flexShrink: 0 }} 
                   onPress={() => navigation.navigate('AddBaby', { babyId: baby._id })}
                 >
                   <Pencil size={20} color="#64748b" />
                 </TouchableOpacity>
               </View>
-              <Text style={styles.infoSubtitle} numberOfLines={1} ellipsizeMode="tail">{baby.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2').replace(/-([^-]+)$/, '-\u200B$1')}</Text>
+              <Text style={styles.infoSubtitle} numberOfLines={2} ellipsizeMode="tail">{baby.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2')?.replace(/-([^-]+)$/, '-​$1')}</Text>
             </View>
           </View>
           
@@ -350,21 +350,21 @@ export default function BabyDetailsScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f8fafc' },
   centered: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f8fafc' },
-  header: { paddingHorizontal: moderateScale(16), paddingVertical: moderateScale(16), backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  headerTitle: { fontSize: moderateScale(20), fontWeight: 'bold', color: '#1e293b' },
-  infoCard: { margin: moderateScale(16), backgroundColor: '#ffffff', padding: moderateScale(24), borderRadius: moderateScale(16), borderWidth: 1, borderColor: '#e2e8f0', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
-  infoTitle: { fontSize: moderateScale(24), fontWeight: '800', color: '#1e293b' },
-  infoSubtitle: { fontSize: moderateScale(14), fontWeight: '500', color: '#64748b', marginBottom: moderateScale(16) },
-  infoGrid: { flexDirection: 'row', flexWrap: 'wrap', marginTop: moderateScale(8) },
-  infoItem: { flexBasis: '50%', flexShrink: 1, minWidth: 0, marginBottom: moderateScale(12) },
-  infoLabel: { fontSize: moderateScale(12), color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.5 },
-  infoValue: { fontSize: moderateScale(16), fontWeight: '600', color: '#1e293b', marginTop: moderateScale(2) },
-  sectionTitle: { fontSize: moderateScale(18), fontWeight: 'bold', color: '#1e293b', marginBottom: moderateScale(16), marginLeft: moderateScale(4) },
+  header: { paddingHorizontal: moderateScale(16), paddingVertical: moderateScale(14), backgroundColor: '#ffffff', borderBottomWidth: 1, borderBottomColor: '#e2e8f0', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  headerTitle: { fontSize: moderateScale(18, 0.3), fontWeight: 'bold', color: '#1e293b' },
+  infoCard: { margin: moderateScale(14), backgroundColor: '#ffffff', padding: moderateScale(16), borderRadius: moderateScale(16), borderWidth: 1, borderColor: '#e2e8f0', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
+  infoTitle: { fontSize: moderateScale(20, 0.3), fontWeight: '800', color: '#1e293b', flexWrap: 'wrap' },
+  infoSubtitle: { fontSize: moderateScale(12, 0.3), fontWeight: '500', color: '#64748b', marginBottom: moderateScale(12), marginTop: 2 },
+  infoGrid: { flexDirection: 'row', flexWrap: 'wrap', marginTop: moderateScale(8), gap: 0 },
+  infoItem: { width: '50%', paddingRight: 8, marginBottom: moderateScale(14) },
+  infoLabel: { fontSize: moderateScale(10, 0.3), color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.5 },
+  infoValue: { fontSize: moderateScale(14, 0.3), fontWeight: '600', color: '#1e293b', marginTop: moderateScale(2), flexWrap: 'wrap' },
+  sectionTitle: { fontSize: moderateScale(16, 0.3), fontWeight: 'bold', color: '#1e293b', marginBottom: moderateScale(12), marginLeft: moderateScale(4) },
   emptyCard: { alignItems: 'center', paddingVertical: moderateScale(32), backgroundColor: '#f1f5f9', borderRadius: moderateScale(12) },
-  sampleCard: { backgroundColor: '#ffffff', padding: moderateScale(16), marginBottom: moderateScale(12), borderRadius: moderateScale(12), borderWidth: 1, borderColor: '#e2e8f0', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  sampleTitle: { fontSize: moderateScale(16), fontWeight: 'bold', color: '#1e293b' },
-  sampleSubtitle: { fontSize: moderateScale(14), color: '#64748b', marginTop: moderateScale(4) },
-  sampleWeight: { fontSize: moderateScale(14), fontWeight: '600', color: '#4f46e5' },
-  sampleEdit: { fontSize: moderateScale(12), color: '#94a3b8', marginTop: moderateScale(4) },
-  fab: { position: 'absolute', bottom: moderateScale(32), right: moderateScale(24), backgroundColor: '#4f46e5', width: moderateScale(64), height: moderateScale(64), borderRadius: moderateScale(32), justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 4, elevation: 6 }
+  sampleCard: { backgroundColor: '#ffffff', padding: moderateScale(14), marginBottom: moderateScale(10), borderRadius: moderateScale(12), borderWidth: 1, borderColor: '#e2e8f0', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  sampleTitle: { fontSize: moderateScale(14, 0.3), fontWeight: 'bold', color: '#1e293b' },
+  sampleSubtitle: { fontSize: moderateScale(12, 0.3), color: '#64748b', marginTop: moderateScale(4) },
+  sampleWeight: { fontSize: moderateScale(13, 0.3), fontWeight: '600', color: '#4f46e5' },
+  sampleEdit: { fontSize: moderateScale(11, 0.3), color: '#94a3b8', marginTop: moderateScale(4) },
+  fab: { position: 'absolute', bottom: moderateScale(32), right: moderateScale(24), backgroundColor: '#4f46e5', width: moderateScale(56), height: moderateScale(56), borderRadius: moderateScale(28), justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 4, elevation: 6 }
 });

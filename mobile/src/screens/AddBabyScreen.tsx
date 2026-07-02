@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Alert, StyleSheet, Switch, Image, Platform, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, Alert, StyleSheet, Switch, Image, Platform, KeyboardAvoidingView, Modal } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -73,6 +73,7 @@ export default function AddBabyScreen() {
   const babyId = route.params?.babyId;
 
   const [loading, setLoading] = useState(false);
+  const [conflictBaby, setConflictBaby] = useState<any>(null);
   const [fetching, setFetching] = useState(!!babyId);
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -176,7 +177,7 @@ export default function AddBabyScreen() {
     }
   };
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: any, forceSave: boolean = false) => {
     setLoading(true);
     try {
       const formData = new FormData();
@@ -234,6 +235,11 @@ export default function AddBabyScreen() {
         } as any);
       }
 
+      if (forceSave) {
+        formData.append('forceSave', 'true');
+        jsonPayload.forceSave = true;
+      }
+
       try {
         if (babyId) {
           await api.put(`/babies/${babyId}`, formData);
@@ -251,6 +257,8 @@ export default function AddBabyScreen() {
           
           await queueRequest(url, method, jsonPayload, imageToUpload, tempId);
           Alert.alert('Saved Offline', 'Your data was saved locally and will sync when internet is restored.', [{ text: 'OK', onPress: () => navigation.goBack() }]);
+        } else if (apiError.response.status === 409 && apiError.response.data?.code === 'DUPLICATE_BABY') {
+          setConflictBaby(apiError.response.data.existingBaby);
         } else {
           throw apiError;
         }
@@ -260,6 +268,11 @@ export default function AddBabyScreen() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleAddAnyway = () => {
+    setConflictBaby(null);
+    handleSubmit((data) => onSubmit(data, true))();
   };
 
   const renderInput = (name: any, placeholder: string, keyboardType: any = 'default', label: string, isRequired: boolean = true, nextField?: string) => (
@@ -483,6 +496,55 @@ export default function AddBabyScreen() {
           </KeyboardAwareScrollView>
         </KeyboardAvoidingView>
       )}
+
+      {/* Duplicate Baby Modal */}
+      <Modal visible={!!conflictBaby} transparent={true} animationType="fade">
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Similar Baby Found</Text>
+            <Text style={styles.modalText}>
+              A baby with the same Mother Name, Gender, Weight, and Gestational Age was previously added.
+            </Text>
+
+            {conflictBaby && (
+              <View style={styles.conflictInfo}>
+                {conflictBaby.motherImage ? (
+                  <Image source={{ uri: conflictBaby.motherImage }} style={styles.conflictImg} />
+                ) : (
+                  <View style={styles.conflictImgPlaceholder}>
+                    <Text style={styles.conflictImgInitial}>
+                      {conflictBaby.motherName.charAt(0).toUpperCase()}
+                    </Text>
+                  </View>
+                )}
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.conflictName}>{conflictBaby.motherName}</Text>
+                  <Text style={styles.conflictId}>{conflictBaby.displayId}</Text>
+                </View>
+              </View>
+            )}
+
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                style={[styles.modalBtn, styles.modalBtnSecondary]}
+                onPress={() => {
+                  setConflictBaby(null);
+                  if (conflictBaby) navigation.navigate('BabyDetails', { babyId: conflictBaby._id });
+                }}
+              >
+                <Text style={styles.modalBtnSecondaryText}>Open Stored Details</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.modalBtn, styles.modalBtnPrimary]} onPress={handleAddAnyway}>
+                <Text style={styles.modalBtnPrimaryText}>Add This Baby</Text>
+              </TouchableOpacity>
+            </View>
+            
+            <TouchableOpacity style={{ marginTop: 16 }} onPress={() => setConflictBaby(null)}>
+              <Text style={{ color: '#64748b', textAlign: 'center', fontWeight: '500' }}>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -498,12 +560,29 @@ const styles = StyleSheet.create({
   label: { fontSize: moderateScale(14), fontWeight: '500', color: '#475569', marginBottom: moderateScale(8) },
   input: { backgroundColor: '#f8fafc', borderColor: '#cbd5e1', borderWidth: 1, borderRadius: moderateScale(10), paddingHorizontal: moderateScale(16), paddingVertical: moderateScale(12), color: '#0f172a' },
   inputError: { borderColor: '#ef4444', backgroundColor: '#fef2f2' },
-  errorText: { color: '#ef4444', fontSize: moderateScale(12), marginTop: moderateScale(4) },
+  errorText: { color: '#ef4444', fontSize: 12, marginTop: 4, marginLeft: 4 },
   imagePickerBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#eef2ff', paddingVertical: moderateScale(16), borderRadius: moderateScale(12), borderWidth: 1, borderColor: '#c7d2fe', borderStyle: 'dashed' },
   imagePickerText: { color: '#4f46e5', fontWeight: '600', marginLeft: moderateScale(8) },
   imagePreviewContainer: { position: 'relative', width: moderateScale(120), height: moderateScale(120), borderRadius: moderateScale(12), overflow: 'hidden' },
   imagePreview: { width: '100%', height: '100%' },
   removeImageBtn: { position: 'absolute', top: moderateScale(8), right: moderateScale(8), backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: moderateScale(12), padding: moderateScale(4) },
   button: { width: '100%', backgroundColor: '#4f46e5', borderRadius: moderateScale(12), paddingVertical: moderateScale(16), marginTop: moderateScale(8), flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
-  buttonText: { color: '#ffffff', fontWeight: 'bold', fontSize: moderateScale(16) }
+  buttonText: { color: '#ffffff', fontWeight: 'bold', fontSize: moderateScale(16) },
+
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', padding: 24 },
+  modalContent: { backgroundColor: '#ffffff', borderRadius: 16, padding: 24, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 12, elevation: 8 },
+  modalTitle: { fontSize: 20, fontWeight: 'bold', color: '#1e293b', marginBottom: 8, textAlign: 'center' },
+  modalText: { fontSize: 14, color: '#64748b', textAlign: 'center', marginBottom: 24, lineHeight: 20 },
+  conflictInfo: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#f8fafc', padding: 16, borderRadius: 12, marginBottom: 24, borderWidth: 1, borderColor: '#e2e8f0' },
+  conflictImg: { width: 56, height: 56, borderRadius: 28, marginRight: 16 },
+  conflictImgPlaceholder: { width: 56, height: 56, borderRadius: 28, marginRight: 16, backgroundColor: '#e2e8f0', justifyContent: 'center', alignItems: 'center' },
+  conflictImgInitial: { fontSize: 24, fontWeight: 'bold', color: '#64748b' },
+  conflictName: { fontSize: 16, fontWeight: 'bold', color: '#1e293b' },
+  conflictId: { fontSize: 14, color: '#64748b', marginTop: 2 },
+  modalButtons: { flexDirection: 'row', gap: 12 },
+  modalBtn: { flex: 1, paddingVertical: 12, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
+  modalBtnSecondary: { backgroundColor: '#ffffff', borderWidth: 1, borderColor: '#e2e8f0' },
+  modalBtnSecondaryText: { color: '#475569', fontWeight: 'bold', fontSize: 13 },
+  modalBtnPrimary: { backgroundColor: '#4f46e5' },
+  modalBtnPrimaryText: { color: '#ffffff', fontWeight: 'bold', fontSize: 14 }
 });

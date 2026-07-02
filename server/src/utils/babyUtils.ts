@@ -1,5 +1,18 @@
 import Baby from '../models/Baby';
 
+export const generateBaseId = (
+  motherName: string,
+  weight: number | undefined,
+  gender: string,
+  gestationalAge: string
+): string => {
+  const firstName = motherName.trim().split(' ')[0]!.toUpperCase();
+  const genderInitial = gender === 'Male' ? 'M' : 'F';
+  const cleanGestationalAge = gestationalAge.replace(/[\-\+]/g, '');
+  const weightString = weight ? `${weight}-` : '';
+  return `${firstName}-${weightString}${genderInitial}-${cleanGestationalAge}`;
+};
+
 export const generateDisplayId = async (
   motherName: string,
   weight: number | undefined,
@@ -7,14 +20,7 @@ export const generateDisplayId = async (
   gestationalAge: string,
   excludeBabyId?: string
 ): Promise<string> => {
-  // Take first name only, Uppercase, Remove spaces
-  const firstName = motherName.trim().split(' ')[0]!.toUpperCase();
-  const genderInitial = gender === 'Male' ? 'M' : 'F';
-  // Remove the dash or plus from gestational age for the ID (e.g., 36W+4D -> 36W4D)
-  const cleanGestationalAge = gestationalAge.replace(/[\-\+]/g, '');
-  
-  const weightString = weight ? `${weight}-` : '';
-  let baseId = `${firstName}-${weightString}${genderInitial}-${cleanGestationalAge}`;
+  const baseId = generateBaseId(motherName, weight, gender, gestationalAge);
 
   let displayId = baseId;
   let isUnique = false;

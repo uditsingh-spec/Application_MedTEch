@@ -13,6 +13,7 @@ import ImageUploader from '../components/common/ImageUploader';
 import GenderSelector from '../components/common/GenderSelector';
 import TwinSelector from '../components/common/TwinSelector';
 import TermSelector from '../components/common/TermSelector';
+import ModalWrapper from '../components/common/ModalWrapper';
 
 // Zod schema based on requirements
 const newBabySchema = z.object({
@@ -71,6 +72,8 @@ const NewBaby: React.FC = () => {
   const navigate = useNavigate();
   const [motherImage, setMotherImage] = useState<File | null>(null);
   const [errorMsg, setErrorMsg] = useState('');
+  const [conflictBaby, setConflictBaby] = useState<any>(null);
+
 
   const { register, handleSubmit, control, watch, formState: { errors } } = useForm<NewBabyFormValues>({
     resolver: zodResolver(newBabySchema),
@@ -95,13 +98,24 @@ const NewBaby: React.FC = () => {
       navigate('/dashboard');
     },
     onError: (error: any) => {
-      setErrorMsg(error.response?.data?.message || 'Failed to register baby');
+      console.error('[NewBaby] API Error:', error);
+      console.error('[NewBaby] Status:', error.response?.status);
+      console.error('[NewBaby] Data:', error.response?.data);
+      if (error.response?.status === 409 && error.response?.data?.code === 'DUPLICATE_BABY') {
+        setConflictBaby(error.response.data.existingBaby);
+      } else {
+        setErrorMsg(error.response?.data?.message || 'Failed to register baby');
+      }
     }
   });
 
-  const onSubmit = (data: NewBabyFormValues) => {
+  const onSubmit = (data: NewBabyFormValues, forceSave: boolean = false) => {
     setErrorMsg('');
     const formData = new FormData();
+    
+    if (forceSave) {
+      formData.append('forceSave', 'true');
+    }
     
     // Append standard fields
     formData.append('motherName', data.motherName);
@@ -147,6 +161,11 @@ const NewBaby: React.FC = () => {
     }
 
     createBabyMutation.mutate(formData);
+  };
+
+  const handleAddAnyway = () => {
+    setConflictBaby(null);
+    handleSubmit((data) => onSubmit(data, true))();
   };
 
   return (
@@ -386,18 +405,68 @@ const NewBaby: React.FC = () => {
         </FormCard>
 
         {/* SUBMIT */}
-        <div className="flex justify-end pt-4">
-          <Button 
-            type="submit" 
-            isLoading={createBabyMutation.isPending} 
-            className="w-full md:w-auto px-8 py-3 text-base"
-          >
-            {createBabyMutation.isPending ? 'Saving & Generating ID...' : 'Save & Register Baby'}
-          </Button>
-        </div>
+          <div className="flex gap-4">
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => navigate('/dashboard')}
+              className="flex-1"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              isLoading={createBabyMutation.isPending}
+              className="flex-1"
+            >
+              Register Baby
+            </Button>
+          </div>
+        </form>
 
-      </form>
-    </div>
+        <ModalWrapper
+          isOpen={!!conflictBaby}
+          onClose={() => setConflictBaby(null)}
+          title="Similar Baby Found"
+        >
+          {conflictBaby && (
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="bg-amber-50 text-amber-800 p-4 rounded-xl text-sm w-full border border-amber-200">
+                A baby with the same Mother Name, Gender, Weight, and Gestational Age was previously added.
+              </div>
+              
+              {conflictBaby.motherImage ? (
+                <img src={conflictBaby.motherImage} alt="Mother" className="w-32 h-32 rounded-full object-cover shadow-md" />
+              ) : (
+                <div className="w-32 h-32 rounded-full bg-slate-100 flex items-center justify-center shadow-md">
+                  <span className="text-4xl text-slate-400 font-bold">{conflictBaby.motherName.charAt(0).toUpperCase()}</span>
+                </div>
+              )}
+              
+              <div>
+                <h4 className="text-xl font-bold text-slate-800">{conflictBaby.motherName}</h4>
+                <p className="text-slate-500 font-medium">{conflictBaby.displayId}</p>
+              </div>
+
+              <div className="flex gap-4 w-full mt-6">
+                <Button 
+                  variant="secondary" 
+                  className="flex-1"
+                  onClick={() => navigate(`/baby/${conflictBaby._id}`)}
+                >
+                  Open Stored Details
+                </Button>
+                <Button 
+                  className="flex-1"
+                  onClick={handleAddAnyway}
+                >
+                  Add This Baby
+                </Button>
+              </div>
+            </div>
+          )}
+        </ModalWrapper>
+      </div>
   );
 };
 

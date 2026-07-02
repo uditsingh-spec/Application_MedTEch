@@ -321,28 +321,26 @@ export default function BabiesListScreen() {
           }
         }}
       >
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
           {item.motherImage ? (
-            <TouchableOpacity onPress={() => setSelectedImage(item.motherImage || null)}>
-              <Image source={{ uri: item.motherImage }} style={{ width: 48, height: 48, borderRadius: 24, marginRight: 12, backgroundColor: '#e2e8f0' }} />
+            <TouchableOpacity onPress={() => setSelectedImage(item.motherImage || null)} style={{ marginRight: 12, marginTop: 2 }}>
+              <Image source={{ uri: item.motherImage }} style={{ width: 48, height: 48, borderRadius: 24, backgroundColor: '#e2e8f0' }} />
             </TouchableOpacity>
           ) : (
-            <View style={{ width: 48, height: 48, borderRadius: 24, marginRight: 12, backgroundColor: '#f8fafc', justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#e2e8f0' }}>
+            <View style={{ width: 48, height: 48, borderRadius: 24, marginRight: 12, marginTop: 2, backgroundColor: '#f8fafc', justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: '#e2e8f0', flexShrink: 0 }}>
               {item.isGroup ? <Users size={24} color="#94a3b8" /> : <Text style={{ fontSize: 20, color: '#64748b', fontWeight: 'bold' }}>{item.motherName.charAt(0).toUpperCase()}</Text>}
             </View>
           )}
           <View style={{ flex: 1, minWidth: 0 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 2 }}>
-              <View style={{ flexShrink: 1, marginRight: 8 }}>
-                <Text style={styles.cardTitle} numberOfLines={1} ellipsizeMode="tail">{item.motherName}</Text>
-              </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 4 }}>
+              <Text style={styles.cardTitle}>{item.motherName}</Text>
               {!item.isGroup && item.dob && (
-                <Text style={[styles.cardDob, { flexShrink: 0 }]}>DOB: {formatDateDDMMYYYY(item.dob)}</Text>
+                <Text style={styles.cardDob}>DOB: {formatDateDDMMYYYY(item.dob)}</Text>
               )}
             </View>
             
-            <View style={{ flexShrink: 1 }}>
-              <Text style={styles.cardSubtitle} numberOfLines={1} ellipsizeMode="tail">{item.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2')}</Text>
+            <View style={{ marginTop: 2 }}>
+              <Text style={styles.cardSubtitle} numberOfLines={2} ellipsizeMode="tail">{item.displayId?.replace(/(-[MF])(\d+W)/, '$1-$2')}</Text>
             </View>
             
             <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 8, flexWrap: 'wrap', gap: 6 }}>
@@ -515,16 +513,16 @@ const styles = StyleSheet.create({
   sortText: { fontSize: moderateScale(13), color: '#334155', fontWeight: '500' },
 
   centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  card: { backgroundColor: '#ffffff', padding: moderateScale(16), marginBottom: moderateScale(12), borderRadius: moderateScale(12), borderWidth: 1, borderColor: '#f1f5f9', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
-  cardTitle: { fontSize: moderateScale(18), fontWeight: 'bold', color: '#1e293b' },
-  cardSubtitle: { color: '#64748b', fontSize: moderateScale(14), marginTop: moderateScale(2) },
-  cardDob: { fontSize: moderateScale(12), color: '#64748b', fontWeight: '500' },
+  card: { backgroundColor: '#ffffff', padding: moderateScale(14), marginBottom: moderateScale(10), borderRadius: moderateScale(12), borderWidth: 1, borderColor: '#f1f5f9', shadowColor: '#000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.05, shadowRadius: 2, elevation: 1 },
+  cardTitle: { fontSize: moderateScale(15, 0.3), fontWeight: 'bold', color: '#1e293b', flexShrink: 1, flexWrap: 'wrap' },
+  cardSubtitle: { color: '#64748b', fontSize: moderateScale(12, 0.3), marginTop: moderateScale(2) },
+  cardDob: { fontSize: moderateScale(11, 0.3), color: '#64748b', fontWeight: '500', flexShrink: 0 },
   
-  badge: { paddingHorizontal: moderateScale(8), paddingVertical: moderateScale(4), borderRadius: moderateScale(6) },
-  badgeText: { fontSize: moderateScale(12), fontWeight: '600' },
-  weightBadge: { paddingHorizontal: moderateScale(8), paddingVertical: moderateScale(4), borderRadius: moderateScale(6), backgroundColor: '#ccfbf1' },
-  weightText: { fontSize: moderateScale(12), fontWeight: '600', color: '#0f766e' },
-  registeredDate: { fontSize: moderateScale(12), color: '#94a3b8', fontWeight: '500' },
+  badge: { paddingHorizontal: moderateScale(7), paddingVertical: moderateScale(3), borderRadius: moderateScale(6) },
+  badgeText: { fontSize: moderateScale(11, 0.3), fontWeight: '600' },
+  weightBadge: { paddingHorizontal: moderateScale(7), paddingVertical: moderateScale(3), borderRadius: moderateScale(6), backgroundColor: '#ccfbf1' },
+  weightText: { fontSize: moderateScale(11, 0.3), fontWeight: '600', color: '#0f766e' },
+  registeredDate: { fontSize: moderateScale(11, 0.3), color: '#94a3b8', fontWeight: '500' },
 
-  fab: { position: 'absolute', bottom: moderateScale(32), right: moderateScale(24), backgroundColor: '#4f46e5', width: moderateScale(64), height: moderateScale(64), borderRadius: moderateScale(32), justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 4, elevation: 6 }
+  fab: { position: 'absolute', bottom: moderateScale(32), right: moderateScale(24), backgroundColor: '#4f46e5', width: moderateScale(56), height: moderateScale(56), borderRadius: moderateScale(28), justifyContent: 'center', alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 4, elevation: 6 }
 });

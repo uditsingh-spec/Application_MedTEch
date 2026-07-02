@@ -2,13 +2,20 @@ import { Request, Response, NextFunction } from 'express';
 import Baby from '../models/Baby';
 import { babySchema, updateBabySchema } from '../validators/babyValidators';
 import { createSampleSchema } from '../validators/sampleValidators';
-import { generateDisplayId } from '../utils/babyUtils';
+import { generateDisplayId, generateBaseId } from '../utils/babyUtils';
 import Sample from '../models/Sample';
 import DailyObservation from '../models/DailyObservation';
 import { calculateObservationDayAndShift } from '../services/observationService';
 import { uploadImage } from '../config/cloudinary';
 
 export const createBaby = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  console.log('\n\n====== LOCAL SERVER HIT: createBaby ======');
+  console.log('motherName:', req.body.motherName);
+  console.log('gestationalAge:', req.body.gestationalAge);
+  console.log('weight:', req.body.weight);
+  console.log('gender:', req.body.gender);
+  console.log('forceSave:', req.body.forceSave);
+  console.log('==========================================\n');
   try {
     // Parse body data, especially handling booleans which come as strings in multipart form data
     const payload = {
@@ -45,6 +52,29 @@ export const createBaby = async (req: Request, res: Response, next: NextFunction
       }
 
       // Twin Logic
+      const baseIdA = generateBaseId(validatedData.motherName, validatedData.weightA, validatedData.genderA, validatedData.gestationalAge);
+      const baseIdB = generateBaseId(validatedData.motherName, validatedData.weightB, validatedData.genderB, validatedData.gestationalAge);
+
+      const forceSave = req.body.forceSave === 'true' || req.body.forceSave === true;
+
+      if (!forceSave) {
+        const existingBaby = await Baby.findOne({
+          $or: [
+            { displayId: new RegExp(`^${baseIdA}`) },
+            { displayId: new RegExp(`^${baseIdB}`) }
+          ]
+        }).sort({ registeredAt: -1 });
+
+        if (existingBaby) {
+          res.status(409).json({
+            message: 'Similar baby ID found',
+            code: 'DUPLICATE_BABY',
+            existingBaby
+          });
+          return;
+        }
+      }
+
       const displayIdA = await generateDisplayId(
         validatedData.motherName,
         validatedData.weightA,
@@ -108,6 +138,23 @@ export const createBaby = async (req: Request, res: Response, next: NextFunction
       }
 
       // Single Baby Logic
+      const baseId = generateBaseId(validatedData.motherName, validatedData.weight, validatedData.gender, validatedData.gestationalAge);
+      
+      const forceSave = req.body.forceSave === 'true' || req.body.forceSave === true;
+
+      if (!forceSave) {
+        const existingBaby = await Baby.findOne({ displayId: { $regex: `^${baseId}` } }).sort({ registeredAt: -1 });
+        
+        if (existingBaby) {
+          res.status(409).json({
+            message: 'Similar baby ID found',
+            code: 'DUPLICATE_BABY',
+            existingBaby
+          });
+          return;
+        }
+      }
+
       const displayId = await generateDisplayId(
         validatedData.motherName,
         validatedData.weight,
